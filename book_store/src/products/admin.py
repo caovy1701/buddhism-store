@@ -6,16 +6,32 @@ from src.products.models import Product, Category, ProductVariant, Media
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', ]
+    list_display = [
+        "id",
+        "name",
+    ]
+
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', ]
+    list_display = [
+        "id",
+        "name",
+    ]
+
 
 class ProductVariantAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', ]
+    list_display = [
+        "id",
+        "name",
+    ]
+
 
 class MediaAdmin(admin.ModelAdmin):
-    list_display = ['id', 'file', ]
+    list_display = [
+        "id",
+        "file",
+    ]
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
