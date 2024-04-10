@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+ 
+<section class="section-login pt-90 pb-90 wow fadeInUp animated animated" data-wow-delay="250ms" data-wow-duration="500ms" style="visibility: visible; animation-duration: 500ms; animation-delay: 250ms;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="login-form">
+                    <div class="section-title text-center">
+                        <h2>Login To Your Account</h2>
+                    </div>
+                    <form action="{% url 'login' %}" method="post" class="login-form" name="login-form">
+                        {% csrf_token %}
+                        {% if message %}
+                            <div class="text-danger error-container">
+                                <span>{{ message }}</span>
+                            </div>
+                        {% endif %}
+                        <div class="text-danger error-container">
+                            <span id="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="email" name="email" required placeholder="Email address">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="password" name="password" required placeholder="Password">
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                    <div class="social-login">
+                        <div class="or-text">
+                            <span>Or</span>
+                        </div>
+                    </div>
+                    <div class="social-login-title text-center">
+                        <div class="social-login-buttons">
+                            <img src="/static/images/google-login.png" class="google-btn-img">
+                            <a href="#" class="google-btn">Login with Google</a>
+                        </div>
+                        <div class="social-login-buttons">
+                            <a href="#" class="facebook-btn">Login with Facebook</a>
+                        </div>
+                    </div>
+                    <div class="login-bottom">
+                        <div class="create-account">
+                            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+                        </div>
+                        <div class="forgot-password">
+                            <p>Forgot your password? <a href="#">Reset Password</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.querySelector('.google-btn').addEventListener('click', function() {
+        alert('Google login is not implemented yet');
+    });
+
+    document.querySelector('.facebook-btn').addEventListener('click', function() {
+        alert('Facebook login is not implemented yet');
+    });
+
+</script>
+
+
+    
+{% endblock %}

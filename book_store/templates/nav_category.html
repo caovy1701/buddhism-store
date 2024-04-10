@@ -1,0 +1,60 @@
+{% load static %}
+<section class="welcome-events pt-90 pb-90 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+
+
+                <div class="banner-head">
+                    {% if category.name %}
+                    <h2> {{ category.name }}</h2>
+                    <h4><a href="{% url 'home' %}"><span>Home <i class="fa fa-angle-right"></i></span></a> {{ category.name }}</h4>
+                    {% elif product.name %}
+                    <h2> {{ product.name }}</h2>
+                    <h4>
+                        <a href="{% url 'home' %}"><span>Home <i class="fa fa-angle-right"></i></span></a>
+                        <a href=""><span>Products <i class="fa fa-angle-right"></i></span></a>
+                        {{ product.name }}
+                    {% else %}
+                    <h2> Books &amp; Products</h2>
+                    <h4><a href="{% url 'home' %}"><span>Home <i class="fa fa-angle-right"></i></span></a> Books &amp; Products</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% if not product %}
+<section class="shop-page-cate pt-90 pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                <div class="heading-con text-center">
+                    <h2>Categories</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for category in categories %}
+            <div class="col-sm-2 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                <div class="category-content">
+                    <a href="{% url 'products-list' category.id %}">
+                        <div class="category-img">
+                            {% if category.icon %}
+                            <img src="{{ category.icon.url }}" alt="image">
+                            {% else %}
+                            <img src="https://delivery.pizza4ps.com/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fdelivery-system-v2%2F03-04-2022-Image%2F10000009_2.jpg&w=1920&q=75" alt="image">
+                            {% endif %}
+                        </div>
+                        <div class="category-text">
+                            <h4>{{ category.name }}</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

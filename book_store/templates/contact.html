@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<section class="welcome-contact-us pt-90 pb-90 wow fadeInUp animated animated animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+
+
+                <div class="banner-head">
+
+                    <h2>Liên hệ với chúng tôi</h2>
+                    <h4><a href="/"><span>Trang Chủ<i class="fa fa-angle-right"></i></span></a>Liên hệ</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="contact-info pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12 wow fadeInUp animated animated animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                <h2>Thông tin liên lạc</h2>
+            </div>
+        </div>
+
+        <div class="row pt-60">
+
+            <div class="col-sm-4 wow fadeInLeft animated animated animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+
+                <div class="contact-content">
+
+                    <div class="contact-img">
+                        <img src="/static/images/phone.png" alt="">
+                    </div>
+                    <p>(+84) 0905354275</p>
+                </div>
+            </div>
+            <div class="col-sm-4 wow fadeInUp animated animated animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+
+                <div class="contact-content">
+
+                    <div class="contact-img">
+                        <img src="/static/images/mail.png" alt="">
+                    </div>
+                    <p>chrisquoc1701@outlook.com</p>
+                </div>
+            </div>
+            <div class="col-sm-4 wow fadeInRight animated animated animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+
+                <div class="contact-content">
+
+                    <div class="contact-img">
+                        <img src="/static/images/clock.png" alt="">
+                    </div>
+                    <p>Hoạt động từ<br> 08:00 AM to 17:30 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-form pt-60 pb-60 wow fadeInUp animated animated" data-wow-delay="400ms"
+    data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-6 wow fadeInLeft animated animated" data-wow-delay="400ms" data-wow-duration="900ms"
+                style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+
+                <div class="contact-us-form">
+                    <h2>Gửi tin nhắn cho chúng tôi</h2>
+                    <div id="resultmm">
+                        <span class="seccess" style="display: none;">
+                            Tin nhắn đã được gửi, chúng tôi sẽ liên hệ lại với bạn sớm nhất.
+                        </span>
+                        <span class="error" style="display: none;">
+                            Có lỗi xảy ra, vui lòng thử lại sau.
+                        </span>
+                    </div>
+                    <form id="my-form" action="contact.php" method="POST" class="row">
+
+                        <div class="form-group col-md-12">
+
+                            <input type="text" placeholder="Nhập Họ và Tên"name="first_name" required=""
+                                class="form-control form-com">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="tel" placeholder="Số điện thoại" name="tel" required=""
+                                class="form-control form-com">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="email" placeholder="Địa chỉ Email"name="email" required=""
+                                class="form-control form-com">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <textarea placeholder="Để lại tin nhắn cho chúng tôi..." required="" name="message"
+                                class="form-control form-com-message "></textarea>
+                        </div>
+
+
+
+                        <div class="view-all1 col-md-12">
+                            <button type="submit" name="submit" class="animation-cer-btn" id="my-form-button">
+                                Gửi 
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-sm-6 wow fadeInRight animated animated" data-wow-delay="400ms" data-wow-duration="900ms"
+                style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+
+                <div class="location">
+
+                    <h2>Địa chỉ của chúng tôi</h2>
+                    <p>
+                        Từ  cầu vượt tân thới hiệp vào đường Lê Văn Khương đi thẳng 2,7km rẽ phải vào đường Trần Thị Cờ đi thêm khoảng 3,4 km rẽ trái vào đường TA13(Thới An 13)
+                    </p>
+                    <div class="location-content">
+
+                        <div class="location-img">
+                            <img src="/static/images/map.png" alt="">
+                        </div>
+                        <p>39 đường TA13 Phường Thới An Quận 12, Tp.HCM</p>
+                    </div>
+                    <div class="map1" style="overflow:hidden;resize:none;max-width:100%;width:500px;height:500px;">
+                        <div id="my-map-display" style="height:100%; width:100%;max-width:100%;"><iframe
+                                style="height:100%;width:100%;border:0;" frameborder="0"
+                                src="https://www.google.com/maps/embed/v1/place?q=39+Thới+An+13,+Thoi+An,+District+12,+Ho+Chi+Minh+City,+Vietnam&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
+                        </div><a class="googlecoder" href="https://www.bootstrapskins.com/themes"
+                            id="inject-map-data">premium bootstrap themes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+{% endblock %}

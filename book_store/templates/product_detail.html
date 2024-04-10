@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+{% include 'nav_category.html' %}
+
+<section class="product-detail pt-90 pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="product-content col-md-5 product-left">
+                <div class="product-image-gallery">
+                    <div class="product-large-image">
+                        <img src="{{ product_variant.image.url }}" alt="image">
+                    </div>
+                    <div class="product-thumb-images">
+                        <div class="slide-prev up">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="product-thumb-image active">
+                            <img src="{{ product.image.url }}" alt="image">
+                        </div>
+                        {% for image in product.media.all|slice:":3" %}
+                        <div class="product-thumb-image">
+                            <img src="{{ image.file.url }}" alt="image">
+                        </div>
+                        {% endfor %}
+                        <div class="slide-next down">
+                            <i class="fas fa-chevron-up"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-content col-md-7 product-right">
+                <div class="product-summary right">
+                    <h2>{{ product_variant.name }}</h2>
+                    {% if product_variant.discount %}
+                    <div class="product-discount">
+                        <span>{{ product_variant.discount }}% off</span>
+                    </div>
+                    {% endif %}
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0</span>
+                        <span>(1)</span>
+                        <span>Review</span>
+                        <span>|</span>
+                    </div>
+                    <p class="product-price" id="price-format">{{ product_variant.price }} VND</p>
+                    {% if product_variant.discount %}
+                    <p class="product-price-discount">$200.00</p>
+                    {% endif %}
+                    <p class="product-description">
+                        {{ product_variant.description|linebreaks }}
+                    </p>
+                    <p class="in-stock">
+                        In stock {{ product_variant.stock }}
+                    </p>
+                    <div class="product-variations">
+                        <label for="variants">Variants</label>
+                        <ul class="product-variation">
+                            {% for variant in product_variants %}
+                            <li>
+                                <a href="{{ variant.get_absolute_url }}">{{ variant.name }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <form class="add-to-cart-form" action="" name="add-to-cart-form" method="post">
+                        <div class="product-quantity">
+                            <a class="minus btn">-</a>
+                            <input type="number" id="quantity_660e673f97c6a" class="input-text qty text" name="quantity" value="1" aria-label="Product quantity" size="4" min="1" max="" step="1" placeholder="" inputmode="numeric" autocomplete="off">
+                            <a class="plus btn">+</a>
+                        </div>
+                        <div class="product-add-to-cart">
+                            <button type="submit" class="add-to-cart btn" name="add-to-cart">Add to cart</button>
+                        </div>
+                    </form>
+                    <div class="btn-inner btn-wishlist">
+                        <a href="#" class="wishlist"></a>
+                        <span class="wishlist b">
+                            Wishlist
+                        </span>
+                    </div>
+                    <div class="product-meta">
+                        <span class="sku_wrapper">SKU: <span class="sku">{{ product_variant.sku }}</span>
+                        <span class="posted_in">Category: <a href="#">{{ product_variant.product.category }}</a></span>
+                        <span class="tagged_as">Tags: <a href="#">Accessories</a>, <a href="#">Clothing</a>, <a href="#">T-shirt</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="tabs-information col-md-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#description">Description</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#">Review</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#">About brands</a>
+                    </li>
+                </ul>
+                <div class="tab-content">      
+                    <div class="tab-description tab-pane active" id="description">
+                        <p>
+                            {{ product_variant.description|linebreaks }}
+                        </p>
+                    </div>
+                    <div class="tab-review tab-pane" id="review">
+                        <div class="reviews">
+                            <div class="comment-customer">
+                                <ol class="commentlist">
+                                    <li class="review-buyer">
+                                        <div class="comment-info">
+                                            <div class="comment-avatar">
+                                                <img src="https://secure.gravatar.com/avatar/b3a94f7948459abcbcddaa028f449568?s=60&d=mm&r=g" alt="image">
+                                            </div>
+                                            <div class="comment-content">
+                                                <div class="comment-meta">
+                                                    <h4 class="comment-author">John Doe</h4>
+                                                    <span class="comment-date">March 5, 2021</span>
+                                                </div>
+                                                <div class="comment-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <p class="comment-text">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget
+                                                    <br>
+                                                    <a href="#">Reply</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                            <div class="review-form-wrapper">
+                                <div class="review-form">
+                                    <h3>Add a review</h3>
+                                    <form action="" method="post" id="commentform" class="comment-form" novalidate="">
+                                        <div class="comment-form-rating">
+                                            <label for="rating">Your rating</label>
+                                            <div id="full-stars">
+                                                <div class="rating-group">
+                                                    <input class="rating__input rating__input--none" name="rating" id="rating-none" value="0" type="radio">
+                                                    <label aria-label="No rating" class="rating__label" for="rating-none"><i class="rating__icon rating__icon--none fa fa-ban"></i></label>
+                                                    <label aria-label="1 star" class="rating__label" for="rating-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                    <input class="rating__input" name="rating" id="rating-1" value="1" type="radio">
+                                                    <label aria-label="2 stars" class="rating__label" for="rating-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                    <input class="rating__input" name="rating" id="rating-2" value="2" type="radio">
+                                                    <label aria-label="3 stars" class="rating__label" for="rating-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                    <input class="rating__input" name="rating" id="rating-3" value="3" type="radio" checked>
+                                                    <label aria-label="4 stars" class="rating__label" for="rating-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                    <input class="rating__input" name="rating" id="rating-4" value="4" type="radio">
+                                                    <label aria-label="5 stars" class="rating__label" for="rating-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                    <input class="rating__input" name="rating" id="rating-5" value="5" type="radio">
+                                                </div>
+                                                <p class="desc" style="margin-bottom: 2rem; font-family: sans-serif; font-size:0.9rem">Full stars<br/>'No rating' option</p>
+                                            </div>
+                                        </div>
+                                        <div class="comment-form-comment">
+                                            <label for="comment">Your review</label>
+                                            <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required=""></textarea>
+                                        </div>
+                                        <div class="comment-form-author">
+                                            <label for="author">Name <span class="required">*</span></label>
+                                            <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="">
+                                            <label for="email">Email <span class="required">*</span></label>
+                                            <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="">
+                                        </div>
+                                        <div class="form-submit">
+                                            <input name="submit" type="submit" id="submit" class="submit" value="Submit">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-about-brands tab-pane" id="about-brands">
+                        <p>
+                            {{ product_variant.about_brand|linebreaks }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="products-container products-related relation col-md-12">
+                <h2>Related Products</h2>
+                <ul class="products-grid products-grid-5">
+                    {% for product_related in products_related %}
+                    <li class="entry">
+                        <div class="product-inner">
+                            <ul class="product-entry-list">
+                                <li class="product-image-wrapper">
+                                    <div class="product-image">
+                                        <a href="{{ product_related.variants.first.get_absolute_url }}">
+                                            {% if product_related.image %}
+                                            <img src="{{ product_related.image.url }}" alt="image">
+                                            {% else %}
+                                            <img src="{% static 'images/all-products.jpg' %}" alt="image">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="actions">
+                                        <div class="btn-inner btn-add-to-cart">
+                                            <a href="#" class="add-to-cart"></a>
+                                            <div class="tooltip for-add-to-cart">
+                                                Add to Cart
+                                            </div>
+                                        </div>
+                                        <div class="btn-inner btn-read-more">
+                                            <a href="{{ product_related.variants.first.get_absolute_url }}" class="read-more" title="Read More">Read More</a>
+                                            <div class="tooltip for-read-more">
+                                                Read More
+                                            </div>
+                                        </div>
+                                        <div class="btn-inner btn-wishlist">
+                                            <a href="#" class="wishlist" title="Wishlist">Wishlist</a>
+                                            <div class="tooltip for-wishlist">
+                                                Wishlist
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li> 
+                                <li class="product-title">
+                                    <a href="{{ product_related.variants.first.get_absolute_url }}">{{ product_related.name }}</a>
+                                </li>
+                                <li class="product-description">
+                                    <p>{{ product_related.description|truncatewords:10 }}</p>
+                                </li>
+                                <li class="product-price">
+                                    <span class="price" id="price-format">{{ product_related.variants.first.price }} VND</span>
+                                    <div class="unit-sold">
+                                        <span>{{ product_related.variants.first.unit_sold }} 20 sold</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+        
+</section>
+
+{% endblock %} 
+

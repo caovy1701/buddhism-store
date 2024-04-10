@@ -1,0 +1,309 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'css/animated.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/default.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/responsive-style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+
+  <!-- Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
+
+
+  
+
+  {% block head %}
+  {% endblock %}
+</head>
+
+<body>
+  <div class="smart-page-loader" style="display: none;">
+    <div class="wp-smart-loader smart-loader-two">
+      <span class="spinner-cube-1 spinner-cube"></span>
+      <span class="spinner-cube-2 spinner-cube"></span>
+      <span class="spinner-cube-4 spinner-cube"></span>
+      <span class="spinner-cube-3 spinner-cube"></span>
+    </div>
+  </div>
+
+  <header>
+    {% include 'nav-home.html' %}
+  </header>
+
+  
+  
+  {% block content %}
+  {% endblock %}
+  
+
+  <section class="temple pt-90 pb-90 wow fadeInUp animated animated" data-wow-delay="250ms" data-wow-duration="500ms" style="visibility: visible; animation-duration: 500ms; animation-delay: 250ms;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="subscribe">
+                    <h2>Theo dõi chúng tôi</h2>
+                    <div id="resultsubscription">
+                            <span class="seccess1" style="color: rgb(255, 255, 255); display: none;">Mail Sent. Thank you, we will contact you shortly.</span>
+                            <span class="error1" style="color: rgb(255, 255, 255); display: none;">Mail was not Sent.</span>
+                        </div>
+                    <form id="my-form" action="" method="post" class="submit wow fadeInLeft animated animated" data-wow-delay="500ms" data-wow-duration="5s" style="visibility: visible; animation-duration: 5s; animation-delay: 500ms;">
+                        <input type="email" id="myEmail" placeholder="Điền vào email của bạn..." name="email" required>
+                        <button class="button-btn" type="submit" name="submitnewsletter">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <footer class="footer pt-90 wow fadeInLeft animated animated" data-wow-delay="500ms" data-wow-duration="5s" style="visibility: visible; animation-duration: 5s; animation-delay: 500ms;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="footer-content">
+                    <h4>Giờ mở cửa</h4>
+                    <ul class="footer-list">
+                        <li> <b>Thứ 2 - Thứ 7</b></li>
+                        <li> 08:00-17:30 </li>
+                        <li> <b>Nghỉ trưa </b></li>
+                        <li> 12:00-13:30 </li>
+                        <li><b> Thứ 7 sáng </b></li>
+                        <li> 08:00-12:00 </li>
+                        <li><b>Chủ nhật nghỉ</b></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="footer-img">
+                    <img src="/static/images/logo.png" alt="">
+                    <h4>Cửa hàng phật pháp</h4>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="footer-content1">
+                    <h4>Địa chỉ liên hệ</h4>
+                    <ul class="footer-list">
+                        <li>Tủ Sách Phật Học</li>
+                        <li>39 đường TA13</li>
+                        <li>Phường Thới An</li>
+                        <li>Quận 12, Tp.HCM</li>
+                    </ul>
+                    <ul class="clearfix-footer">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <div class="min-f-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copy-one-to fl-right">
+                        <p>© Copyright
+                        <script>var year = new Date(); document.write(year.getFullYear());</script>2024 by <a href="#">Example.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </footer>
+  
+    
+</body>
+
+<!-- Bootstrap JS -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/swiper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/wow.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+
+<script>
+
+        const navTabs = document.querySelectorAll('.nav-tabs .nav-link');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        
+        navTabs.forEach((navTab, index) => {
+            navTab.addEventListener('click', () => {
+                navTabs.forEach((navTab) => {
+                    navTab.classList.remove('active');
+                });
+                navTab.classList.add('active');
+                tabPanes.forEach((tabPane) => {
+                    tabPane.classList.remove('active');
+                });
+                tabPanes[index].classList.add('active');
+            });
+        });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("ul.pagination li a").click(function(e) {
+            e.preventDefault();
+            var page = $(this).attr("href");
+            console.log(page);
+            $.ajax({
+                url: "{% url 'category' %}" + page.split("page=")[1],
+                success: function(data) {
+                    $("html").html(data);
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    // add dot to all id #price-format every 3 digits
+    const priceFormat = document.querySelectorAll('#price-format');
+    priceFormat.forEach((price) => {
+        price.textContent = price.textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    });
+</script>
+
+<script>
+    //product image gallery
+    const productThumbImages = document.querySelectorAll('.product-thumb-image');
+    const productLargeImage = document.querySelector('.product-large-image img');
+
+    //when click on thumb image change large image and all thumb images opacity to 0.5 and active thumb image opacity to 1
+    //when click on slide up or down change thumb images
+    productThumbImages.forEach((productThumbImage) => {
+        productThumbImage.addEventListener('click', () => {
+            productLargeImage.src = productThumbImage.querySelector('img').src;
+            productThumbImages.forEach((productThumbImage) => {
+                productThumbImage.classList.remove('active');
+                productThumbImage.style.opacity = 0.5;
+            });
+            productThumbImage.classList.add('active');
+            productThumbImage.style.opacity = 1;
+        });
+    });
+
+    //slide every 3 seconds and return to first thumb image when reach the last thumb image
+    setInterval(() => {
+        const activeThumbImage = document.querySelector('.product-thumb-image.active');
+        // next thumb image always get class .product-thumb-image
+        const nextThumbImage = activeThumbImage.nextElementSibling;
+        if (nextThumbImage && nextThumbImage.classList.contains('product-thumb-image')){
+            productLargeImage.src = nextThumbImage.querySelector('img').src;
+            productThumbImages.forEach((productThumbImage) => {
+                productThumbImage.classList.remove('active');
+                productThumbImage.style.opacity = 0.5;
+            });
+            nextThumbImage.classList.add('active');
+            nextThumbImage.style.opacity = 1;
+
+        } else {
+            // return to first thumb image when reach the last thumb image
+            productLargeImage.src = productThumbImages[0].querySelector('img').src;
+            productThumbImages.forEach((productThumbImage) => {
+                productThumbImage.classList.remove('active');
+                productThumbImage.style.opacity = 0.5;
+            });
+            productThumbImages[0].classList.add('active');
+            productThumbImages[0].style.opacity = 1;
+        }
+    }, 3000);
+
+</script>
+<script>
+    const productThumbImagesBtn = document.querySelectorAll('.product-thumb-image');
+    const productLargeImageBtn = document.querySelector('.product-large-image img');
+    //button slide up and down thumb images when click change thumb images and large image and active thumb image opacity to 1 and others to 0.5 and if last thumb image reach return to first thumb image
+    //button ".slide-next"
+    document.querySelector('.slide-next').addEventListener('click', () => {
+        const activeThumbImage = document.querySelector('.product-thumb-image.active');
+        const nextThumbImage = activeThumbImage.nextElementSibling;
+        if (nextThumbImage && nextThumbImage.classList.contains('product-thumb-image')){
+            productLargeImageBtn.src = nextThumbImage.querySelector('img').src;
+            productThumbImagesBtn.forEach((productThumbImage) => {
+                productThumbImage.classList.remove('active');
+                productThumbImage.style.opacity = 0.5;
+            });
+            nextThumbImage.classList.add('active');
+            nextThumbImage.style.opacity = 1;
+        } else {
+            productLargeImageBtn.src = productThumbImagesBtn[0].querySelector('img').src;
+            productThumbImagesBtn.forEach((productThumbImage) => {
+                productThumbImage.classList.remove('active');
+                productThumbImage.style.opacity = 0.5;
+            });
+            productThumbImagesBtn[0].classList.add('active');
+            productThumbImagesBtn[0].style.opacity = 1;
+        }
+    });
+
+    //button ".slide-prev"
+    document.querySelector('.slide-prev').addEventListener('click', () => {
+        const activeThumbImage = document.querySelector('.product-thumb-image.active');
+        const prevThumbImage = activeThumbImage.previousElementSibling;
+        if (prevThumbImage && prevThumbImage.classList.contains('product-thumb-image')){
+            productLargeImageBtn.src = prevThumbImage.querySelector('img').src;
+            productThumbImagesBtn.forEach((productThumbImage) => {
+                productThumbImage.classList.remove('active');
+                productThumbImage.style.opacity = 0.5;
+            });
+            prevThumbImage.classList.add('active');
+            prevThumbImage.style.opacity = 1;
+        } else {
+            productLargeImageBtn.src = productThumbImagesBtn[productThumbImagesBtn.length - 1].querySelector('img').src;
+            productThumbImagesBtn.forEach((productThumbImage) => {
+                productThumbImage.classList.remove('active');
+                productThumbImage.style.opacity = 0.5;
+            });
+            productThumbImagesBtn[productThumbImagesBtn.length - 1].classList.add('active');
+            productThumbImagesBtn[productThumbImagesBtn.length - 1].style.opacity = 1;
+        }
+    });
+
+    //quantity
+    const quantityInput = document.querySelector('.product-quantity input');
+
+    document.querySelector('.product-quantity .btn:first-child').addEventListener('click', () => {
+        quantityInput.value = parseInt(quantityInput.value) - 1;
+        if (quantityInput.value < 1) {
+            quantityInput.value = 1;
+        }
+    });
+
+    document.querySelector('.product-quantity .btn:last-child').addEventListener('click', () => {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+        
+</script>
+
+
+</html>

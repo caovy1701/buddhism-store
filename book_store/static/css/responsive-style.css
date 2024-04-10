@@ -1,0 +1,397 @@
+
+/* Extra large devices (large desktops, 1800px and up) */
+@media (max-width: 1800px) {
+}
+@media (min-width: 1200px){.container, .container-lg, .container-md, .container-sm, .container-xl {
+
+}
+}
+
+/* Extra large devices (large desktops, 1800px and up) */
+@media (max-width: 1440px) {
+.vision {
+    display: contents;
+}
+}
+@media (max-width: 1024px){
+.vision {
+    display: contents;
+}
+.header-title li {
+    margin: 0 20px;
+    padding: 0 30px 0 0;
+}
+.header-title li a {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+}
+}
+@media (max-width: 992px){
+
+   .m-header {
+    display: block;
+    float: right;
+}
+.donation-total input.form-control.form-com {
+    text-align: center!important;
+    width: 100%;
+    /* display: flow-root; */
+    padding: 40px 0;
+    position: relative;
+    left: 0;
+    margin-top: 60px;
+}
+.donate-btn {
+    padding-bottom: 10px;
+}
+.welcome-about {
+    background-image: url(../images/Rectangle22.png);
+    background-size: cover;
+    background-position: center;
+    margin-top: 0px;
+}
+.welcome-events {
+    background-image: url(../images/Rectangle221.png);
+    background-size: cover;
+    background-position: center;
+    margin-top: 0px;
+}
+.welcome-events-details {
+    background-image: url(../images/Rectangle722.png);
+    background-size: cover;
+    background-position: center;
+    margin-top: 0px;
+}
+.welcome-blog {
+    background-image: url(../images/Rectangle912.png);
+    background-size: cover;
+    background-position: center;
+    margin-top: 0px;
+}
+.welcome-blog-details {
+    background-image: url(../images/Rectangle912.png);
+    background-size: cover;
+    background-position: center;
+     margin-top: 0px;
+}
+.welcome-causes {
+    background-image: url(../images/Rectangle212.png);
+    background-size: cover;
+    background-position: center;
+    margin-top: 0px;
+}
+.welcome-causes-details {
+    background-image: url(../images/Rectangle212.png);
+    background-size: cover;
+    background-position: center;
+    margin-top: 0px;
+}
+.welcome-contact-us {
+    background-image: url(../images/Rectangle001.png);
+    background-size: cover;
+    background-position: center;
+    margin-top: 0px;
+}
+.welcome-events-details h2 {
+    text-align: center;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    padding: 20px 0;
+}
+.subscribe a {
+    position: relative;
+    padding: 15px 80px;
+    text-decoration: none;
+    color: white;
+    height: 65px;
+    background-color: #02499d;
+    font-weight: 600;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 20px;
+    transition: all 0.3s linear;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 5px;
+    display: block;
+    margin-left: 20px;
+}
+.submit input#myEmail {
+    font-family: 'Jost';
+    padding: 25px 10px 25px 10px;
+    border: none;
+    width: 100%;
+    text-align: left!important;
+    background-color: rgba(217, 217, 217, 0.35);
+}
+.submit {
+    padding: 20px 0;
+        display: contents;
+    width: 100%;
+    justify-content: center;
+}
+.causes-text h4 {
+    padding-bottom: 20px;
+    font-size: 15px;
+}
+.blog-about {
+    background: rgba(197, 171, 210, 0.45);
+    padding: 40px 40px;
+    display: block;
+    font-size: 13px;
+}
+.blog-about-text h2 {
+    font-size: 22px;
+}
+.blog-about-text {
+    padding: 10px 0 0 0;
+    font-size: 1;
+}
+.blog-text span {
+    float: left;
+    color: #95839E;
+}
+.blog-text h5 {
+    display: block;
+    font-size: 18px;
+}
+.calendar-text span {
+    font-size: 15px;
+}
+.header-flex {
+    display: none;
+}
+section.welcome-home.pt-60.pb-60 {
+    background-image: url(../images/banner.png);
+    background-size: cover;
+    background-position: center;
+    margin-top: 60px;
+}
+.Buddha h1 {
+    font-size: 42px;
+    line-height: 50px;
+    padding-bottom: 20px;
+}
+.lotus-text {
+    padding: 5px 5px 0 25px;
+    color: white;
+   
+}
+.offer-content {
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 5px 5px 5px #0000006b;
+    padding: 35px 10px;
+    margin-bottom: 50px;
+    font-size: 13px;
+}
+.offer-content h4 {
+    color: #95839E;
+    font-size: 20px;
+}
+.lotus-text h4 {
+    
+    font-size: 15px;
+}
+.lotus-img img {
+    vertical-align: middle;
+    border-style: none;
+    
+    /* height: 100px; */    background-color: white;
+    border-radius: 50%;
+}
+.lotus {
+   
+    background-color: #02499d;
+    margin-bottom: 20px;
+    padding: 30px 30px;
+    border-radius: 5px;
+}
+.latest-news-blogs {
+    padding: 0 10px;
+}
+.subscribe h2 {
+    color: white;
+    padding: 0 0 20px 0;
+    font-size: 35px;
+}
+.history h4 {
+    /* bottom: 50px; */
+    color: white;
+    background-color: #02499d;
+    border: 1px solid;
+    font-size: 30px;
+    border-radius: 50%;
+    /* height: 100px; */
+    text-align: center;
+    width: 100px;
+    padding: 25px 0px;
+    position: absolute;
+    top: -60px;
+    left: 35%;
+}
+.nav__links {
+    transition: 1s ease-out;
+}
+.dharma{
+    margin-top: 10px;
+}
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .top-header, .mid-header .col-sm-5 {
+        display: none !important;
+    }
+
+    .m-header {
+        display: block;
+        float: right;
+        position: absolute;
+        top: -6em;
+        right: 0;
+    }
+    .welcome-home .col-sm-5 {
+        width: 50% !important;
+        max-width: 50%;
+    }
+
+.art1 {
+    padding-top: 90px;
+    font-size: 11px;
+}
+.history h4 {
+    /* bottom: 50px; */
+    color: white;
+    background-color: #02499d;
+    border: 1px solid;
+    font-size: 30px;
+    border-radius: 50%;
+    /* height: 100px; */
+    text-align: center;
+    width: 100px;
+    padding: 25px 0px;
+    position: absolute;
+    top: -60px;
+    left: 15%;
+}
+.organizer-list li {
+    list-style: none;
+    padding: 15px 0 10px 0;
+    line-height: 32px;
+    font-size: 14px;
+}
+.organizer-content p {
+    padding: 15px 0 10px 0;
+    line-height: 32px;
+    font-size: 13px;
+}
+.blog-list li {
+    list-style: none;
+    padding: 10px 0 5px 0;
+    font-size: 9px;
+}
+.calendar-text h5 {
+    font-size: 12px;
+}
+.home-btn a {
+    background-color: #02499d;
+    color: black;
+    text-decoration: none;
+    padding: 15px 21px;
+    font-size: 20px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.vision {
+    display: contents;
+}
+.subscribe .button-btn{
+    margin-top:20px;
+}
+}
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .footer-content1 {
+        padding: 20px 0px;
+        text-align: left;
+    }
+    .clearfix-footer {
+        padding: 0;
+        display: flex;
+        float: left;
+    }
+    .heading-con h2 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+    .top-header, .mid-header .col-sm-5 {
+        display: none !important;
+    }
+    .m-header {
+        display: block;
+        float: right;
+        position: absolute;
+        top: -6em;
+        right: 0;
+    }
+
+    .header-details-list span {
+        font-size: 6px;
+    }
+.header-details-list li {
+    list-style: none;
+    color: white;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+ .vision2 {
+    display: block;
+    margin-top: 50px;
+}
+.subscribe .button-btn{
+    margin-top:20px;
+}
+}
+@media only screen and (min-width: 0px) and (max-width: 520px) {
+    .lotus{
+        display:block !important;
+    }
+    .lotus-text {
+    padding: 5px 5px 0 5px;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 374px) {
+
+
+.header-details-list li {
+    list-style: none;
+    color: white;
+    padding: 0;
+}
+.blog-list li {
+    list-style: none;
+    padding: 10px 0 5px 0;
+    font-size: 15px;
+}
+.calendar-text span {
+    font-size: 13px;
+}
+.header-details-list {
+    padding: 0;
+    margin: 0;
+    display: block;
+}
+.header-icons-list {
+    padding-top: 20px;
+}
+  }

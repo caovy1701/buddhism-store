@@ -1,0 +1,155 @@
+{% load static %}
+
+
+<header class="top-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="header-details">
+                    <ul class="header-details-list">
+                        {% if user.is_authenticated %}
+                        <li>
+                            <img src="https://buddhist-html.wrmlabs.com/images/Vector.png"/>
+                            <a href="{% url 'logout' %}">
+                                <span>Logout</span>
+                            </a>
+                            <a href="{% url 'profile' %}">
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <img src="https://buddhist-html.wrmlabs.com/images/Vector.png"/>
+                            <a href="{% url 'login' %}">
+                                <span>Login/Register</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    <li>
+                        <img src="https://buddhist-html.wrmlabs.com/images/Vector2.png"/>
+                        <span>(+84) 0905354275</span>
+                    </li>
+                    <li>
+                        <img src="https://buddhist-html.wrmlabs.com/images/Vector1.png"/>
+                        <span>chrisquoc1701@outlook.com</span>
+                    </li>
+                    <li>
+                        <img src="https://buddhist-html.wrmlabs.com/images/Vector3.png"/>
+                        <span>39 đường TA13 Phường Thới An Quận 12, Tp.HCM</span>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="header-icons-list">
+                    <ul class="clearfix">
+                        <li>
+                            <a href="#"> <i class="fab fa-facebook-f"></i> </a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="fab fa-twitter"></i> </a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="fab fa-instagram"></i> </a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="fab fa-linkedin-in"></i> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<header class="mid-header">
+    <div class="container">
+        <div class="row">
+                <div class="col-sm-7">
+                    <div class="logo">
+                        <a href="{% url 'home' %}">
+                            <img src="/static/images/logo.png" alt="logo" />
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="header-para">
+                        <p>
+                            Quả của việc hành thiện không xuất hiện ngay lập tức
+                        </p>
+                        <span>
+                            - Đức Phật
+                        </span>
+                    </div>
+                </div>
+        </div>
+    </div>
+</header>
+
+<header class="header">
+    <div class="container">
+        <div class="header-flex">
+
+            <input type="checkbox" id="click" name="checkbox">
+            <label for="click" class="menu-btn">
+                <i class="fa fa-bars"></i>
+            </label>
+            <ul class="header-title">
+                <li class="active">
+                    <div class="dropdown">
+                        <a href="{% url 'home' %}">
+                            <button class="dropbtn">Trang chủ</button>
+                        </a>
+                        <!-- <div class="dropdown-content">
+                            <a href="index.html">Home One</a>
+                            <a href="home2.html">Home Two</a>
+                        </div> -->
+                    </div>
+                </li>
+                <li class=""> <a href="about-us.html">Về chúng tôi</a></li>
+                <li class=""><a href="events.html">Tin tức</a></li>
+
+                <li class=""><a href="{% url 'category' %}">Cửa hàng</a></li>
+                <li class=""><a href="gallery.html">Hình ảnh</a></li>
+                <li class=""><a href="{% url 'contact' %}">Liên hệ</a></li>
+            </ul>
+        </div>
+
+        <!-- desktop-header-end -->
+        <!--Mobile-header -->
+        <section class="m-header">
+            <div class="both-head">
+
+                <button class="header__button" id="btnNav" type="button">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </section>
+        <nav class="nav">
+            <div class="nav__links">
+                <div class="brand-log">
+
+                    <span class="icons">×</span>
+                </div>
+                <ul id="mobile-title">
+                    <li class="active"><div class="dropdown">
+<button class="dropbtn">Trang chủ</button>
+<div class="dropdown-content">
+</div>
+</div></li>
+                    <li class=""> <a href="about-us.html">Về chúng tôi</a></li>
+                    <li class=""><a href="events.html">Sự kiện</a></li>
+
+                    <li class=""><a href="blog.html">Bài viết</a></li>
+                    <li class=""><a href="gallery.html">Hình ảnh</a></li>
+                    <!-- <li class=""><a href="causes.html">Causes</a></li> -->
+                    <li class=""><a href="contact-us.html">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="nav__overlay"></div>
+        </nav>
+
+
+
+    </div>
+</header>

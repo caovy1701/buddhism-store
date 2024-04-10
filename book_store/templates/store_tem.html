@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<section class="welcome-events pt-90 pb-90 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+
+
+                <div class="banner-head">
+
+                    <h2> Book &amp; Products</h2>
+                    <h4><a href="{% url 'home' %}"><span>Home <i class="fa fa-angle-right"></i></span></a> Book &amp; Products</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="shop-page-cate pt-90 pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                <div class="heading-con text-center">
+                    <h2>Categories</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for category in categories %}
+            <div class="col-sm-2 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                <div class="category-content">
+                    <a href="{% url 'products-category' category.id %}">
+                        <div class="category-img">
+                            {% if category.icon %}
+                            <img src="{{ category.icon.url }}" alt="image">
+                            {% else %}
+                            <img src="https://delivery.pizza4ps.com/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fdelivery-system-v2%2F03-04-2022-Image%2F10000009_2.jpg&w=1920&q=75" alt="image">
+                            {% endif %}
+                        </div>
+                        <div class="category-text">
+                            <h4>{{ category.name }}</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="col-sm-2 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                <div class="category-content">
+                    <div class="category-img">
+                        <a href="#"><img src="{% static 'images/all-products.jpg' %}" alt="image"></a>
+                    </div>
+                    <div class="category-text">
+                        <h4><a href="{% url 'products' %}">View All Products</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product-list pt-90 pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                <div class="heading-con text-center">
+                    <h2>Book &amp; Notebook</h2>
+                    <div class="toolbar">
+                        <div class="sorter-view">
+                            <a href="shop-list.html" class="active"><i class="fa fa-th-list"></i></a>
+                            <a href="shop-grid.html"><i class="fa fa-th"></i></a>
+                        </div>
+                        <div class="showing">
+                            <ul>
+                                <div class="showing-label">
+                                    <li class="showing-label">Showing:</li>
+                                </div>
+                                <li><a href="?show=1" class="showing-active">12</a></li>
+                                <li><a href="?show=2" class ="showing-active">24</a></li>
+                                <li><a href="?show=36" class ="showing-active">36</a></li>
+                            </ul>
+                        </div>
+                        <div class="sorter">
+                            <select>
+                                <option value="default-sorting">Default Sorting</option>
+                                <option value="name">Name</option>
+                                <option value="price">Price</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="products-container">
+                <ul class="products-grid">
+                    {% for product in products|slice:":6" %}
+                    <li class="entry">
+                        <div class="product-inner">
+                            <ul class="product-entry-list">
+                                <li class="product-image-wrapper">
+                                    <div class="product-image">
+                                        <a href="#">
+                                            <img src="{{ product.image.url }}" alt="image">
+                                        </a>
+                                    </div>
+                                    <div class="actions">
+                                        <div class="btn-inner btn-add-to-cart">
+                                            <a href="#" class="add-to-cart"></a>
+                                            <div class="tooltip for-add-to-cart">
+                                                Add to Cart
+                                            </div>
+                                        </div>
+                                        <div class="btn-inner btn-read-more">
+                                            <a href="#" class="read-more" title="Read More">Read More</a>
+                                            <div class="tooltip for-read-more">
+                                                Read More
+                                            </div>
+                                        </div>
+                                        <div class="btn-inner btn-wishlist">
+                                            <a href="#" class="wishlist" title="Wishlist">Wishlist</a>
+                                            <div class="tooltip for-wishlist">
+                                                Wishlist
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li> 
+                                <li class="product-title">
+                                    <a href="#">{{ product.name }}</a>
+                                </li>
+                                <li class="product-description">
+                                    <p>{{ product.description|truncatewords:10 }}</p>
+                                </li>
+                                <li class="product-price">
+                                    <span class="price">{{ product.price }} 500000</span>
+                                    <div class="unit-sold">
+                                        <span>{{ product.unit_sold }} 20 sold</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="pagination-con col-md-12" id="pagination-con">
+                <ul class="pagination" id="pagination">
+                    {% if paginator.has_previous %}
+                    <li><a href="?page=1">First</a></li>
+                    <li><a href="?page={{ paginator.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    {% for num in paginator.page_range %}
+                    {% if num == page_obj.number %}
+                    <li>
+                        <a class="prev" href="?page={{ paginator.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
+                    </li>
+                    <li>
+                        <a class="page-active" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a class="page-active" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    <li>
+                        <a class="next" href="?page={{ paginator.num_pages }}"><i class="fa fa-angle-right"></i></a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if paginator.has_next %}
+                    <li><a href="?page={{ paginator.next_page_number }}">Next</a></li>
+                    <li><a href="?page={{ paginator.num_pages }}">Last</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="see-more left">
+                <a href="{% url 'products' %}" class="btn">See More...</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<style>
+    .see-more {
+        font-size: 20px;
+    }
+</style>
+{% endblock %}
