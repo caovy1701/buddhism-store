@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "categories",
     "src.products",
     "src.users",
+    "src.news",
 ]
 
 MIDDLEWARE = [
