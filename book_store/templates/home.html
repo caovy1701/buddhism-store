@@ -169,75 +169,26 @@ style="visibility: visible; animation-duration: 500ms; animation-delay: 250ms;">
           <div class="owl-stage-outer">
             <div class="owl-stage"
               style="transform: translate3d(-1553px, 0px, 0px); transition: all 0.25s ease 0s; width: 3495px;">
-
+              {% for new in news %}
               <div class="owl-item active" style="width: 363.333px; margin-right: 25px;">
                 <div class="item">
                   <div class="latest-content">
                     <div class="latest-img">
-                      <a href="events.html"><img src="https://buddhist-html.wrmlabs.com/images/Rectangle15.png"
+                      <a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}"><img src=""
                           alt=""></a>
                     </div>
                     <div class="latest-text">
-                      <span>Wed, April 12, 2022 / Whole Day</span>
-                      <h6><a href="events.html">Great Lotus Birthday Celebration</a></h6>
-                      <p>Integer laoreet risus non risus tempor congue. Aliquam erat volutpat. Mauris eu nisl quis
-                        mi ultrices dictum sed quis ante........</p>
-                      <a href="events.html" class="latest-btn">Read More</a>
+                      <span>{{ new.created}}</span>
+                      <h6><a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}">{{ new.title }}</a></h6>
+                      <p>
+                        {{ new.content|safe|slice:":50" }}...
+                      </p>
+                      <a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}" class="latest-btn">Read More</a>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="owl-item active" style="width: 363.333px; margin-right: 25px;">
-                <div class="item">
-                  <div class="latest-content">
-                    <div class="latest-img">
-                      <a href="events.html"><img src="https://buddhist-html.wrmlabs.com/images/Rectangle114.png"
-                          alt=""></a>
-                    </div>
-                    <div class="latest-text">
-                      <span>Wed, April 12, 2022 / Whole Day</span>
-                      <h6><a href="events.html">Buddha’s Birthday Celebration</a></h6>
-                      <p>Integer laoreet risus non risus tempor congue. Aliquam erat volutpat. Mauris eu nisl quis
-                        mi ultrices dictum sed quis ante........</p>
-                      <a href="events.html" class="latest-btn">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="owl-item active" style="width: 363.333px; margin-right: 25px;">
-                <div class="item">
-                  <div class="latest-content">
-                    <div class="latest-img">
-                      <a href="events.html"><img src="https://buddhist-html.wrmlabs.com/images/Rectangle114.png"
-                          alt=""></a>
-                    </div>
-                    <div class="latest-text">
-                      <span>Wed, April 12, 2022 / Whole Day</span>
-                      <h6><a href="events.html">Buddha’s Birthday Celebration</a></h6>
-                      <p>Integer laoreet risus non risus tempor congue. Aliquam erat volutpat. Mauris eu nisl quis
-                        mi ultrices dictum sed quis ante........</p>
-                      <a href="events.html" class="latest-btn">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="owl-item cloned active" style="width: 363.333px; margin-right: 25px;">
-                <div class="item">
-                  <div class="latest-content">
-                    <div class="latest-img">
-                      <a href="events.html"><img src="https://buddhist-html.wrmlabs.com/images/Rectangle14.png"
-                          alt=""></a>
-                    </div>
-                    <div class="latest-text">
-                      <span>Wed, April 12, 2022 / Whole Day</span>
-                      <h6><a href="events.html">Dharma Name Conferment Ceremony</a></h6>
-                      <p>Integer laoreet risus non risus tempor congue. Aliquam erat volutpat. Mauris eu nisl quis
-                        mi ultrices dictum sed quis ante........</p>
-                      <a href="events.html" class="latest-btn">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {% endfor %}
             </div>
           </div>
         </div>

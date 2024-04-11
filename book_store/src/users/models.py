@@ -19,8 +19,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
-    
-
 
 
 class Address(models.Model):
@@ -38,3 +36,17 @@ class Address(models.Model):
 
     def __str__(self):
         return self.user.email
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    message = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Contact"
+        verbose_name_plural = "Contacts"
+
+    def __str__(self):
+        return self.name

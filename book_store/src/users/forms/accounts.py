@@ -17,6 +17,7 @@ from django.utils.http import urlsafe_base64_decode
 
 User = get_user_model()
 
+
 class CustomUserCreationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
@@ -68,12 +69,11 @@ class UserProfileUpdateForm(forms.ModelForm):
             ]
         )
         return user
-    
+
     def clean(self):
         cleaned_data = super().clean()
         print("cleaned_data", cleaned_data)
         return cleaned_data
-    
 
 
 class AddressForm(forms.ModelForm):
@@ -93,12 +93,12 @@ class AddressForm(forms.ModelForm):
             update_fields=["address", "city", "district", "ward", "street", "note"]
         )
         return address
-    
+
     def clean(self):
         cleaned_data = super().clean()
         print("cleaned_data", cleaned_data)
         return cleaned_data
-    
+
 
 class ChangePasswordForm(forms.Form):
     old_password = forms.CharField(widget=forms.PasswordInput)
@@ -115,12 +115,12 @@ class ChangePasswordForm(forms.Form):
         if not self.instance.check_password(old_password):
             raise forms.ValidationError("Old password is incorrect")
         return cleaned_data
-    
+
     def save(self):
         self.instance.set_password(self.cleaned_data["new_password"])
         self.instance.save(update_fields=["password"])
         return self.instance
-    
+
     def __init__(self, *args, **kwargs):
         self.instance = kwargs.pop("instance")
         super().__init__(*args, **kwargs)
@@ -181,7 +181,7 @@ class PasswordResetConfirmForm(forms.Form):
         if new_password != confirm_password:
             raise forms.ValidationError("Passwords do not match")
         return cleaned_data
-    
+
     def save(self, uid, token):
         uid = urlsafe_base64_decode(uid)
         user = User.objects.filter(pk=uid).first()

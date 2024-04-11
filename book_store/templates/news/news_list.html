@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="welcome-blog pt-90 pb-90 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="banner-head">
+
+                    <h2> Blogs</h2>
+                    <h4><a href="{% url 'home' %}"><span>Home <i class="fa fa-angle-right"></i></span></a> Blogs</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog-content pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-7">
+                {% for new in news %}
+                <div class="blog-body wow fadeInLeft animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+
+                    <div class="blog-img">
+                        <a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}"><img src="https://buddhist-html.wrmlabs.com/images/Rectangle550.png" alt=""></a>
+                    </div>
+
+                    <div class="blog-text">
+                        <h5><a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}">{{ new.title }}</a></h5>
+                        <span>{{ new.created_at }}</span>
+                        <p>{{ new.content|safe|truncatewords:50 }}</p>
+                        <a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}" class="blog-btn">Read More</a>
+                    </div>
+                </div>
+                {% endfor %}
+                
+
+
+            </div>
+
+
+            <div class="col-sm-5">
+                <div class="blog-categories">
+
+                    <div class="blog-cat-content wow fadeInRight animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                        <h2>Categories</h2>
+
+                        <ul class="blog-list">
+                            {% for category in categories %}
+                            <li><a href="{% url 'news' category.slug %}"> 
+                                <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i><span>{{ category.name }}</span></a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="blog-search wow fadeInRight animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                        <h2>Search</h2>
+                        <form>
+                            <input type="text" placeholder="SEARCH" name="search">
+
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+
+                    </div>
+
+                    <div class="latest-blog wow fadeInRight animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+
+                        <h2>Latest Blogs</h2>
+                        {% for latest in latest_news %}
+                        <div class="blog-calendar">
+
+                            <div class="calendar-img">
+                                <a href="{% url 'news_detail' slug=latest.category.slug pk=latest.pk %}">
+                                    <img src="{{ latest.icon }}" alt=""> 
+                            </div>
+                            <div class="calendar-text">
+                                <h5>{{ latest.created }}</h5>
+                                <span><a href="blog-details.html">{{ latest.title }}</a></span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

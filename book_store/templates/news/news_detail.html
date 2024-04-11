@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="welcome-blog-details pt-90 pb-90 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="banner-head">
+
+                    <h2>{{ news.title }}</h2>
+                    <h4><a href="{% url 'home' %}"><span>Home <i class="fa fa-angle-right"></i></span></a> {{ news.category.name }}</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog-content pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-7">
+
+                <div class="blog-body1 wow fadeInLeft animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                    <div class="blog-text1">
+                        <a href="#"><h5>{{ news.title }}</h5></a>
+                        <span>{{ news.created }}</span>
+                    </div>
+                    <div class="blog-text1">
+                        <p>{{ news.content|safe }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-5">
+                <div class="blog-categories wow fadeInRight animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                    <div class="blog-cat-content wow fadeInRight animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                        <h2>Categories</h2>
+
+                        <ul class="blog-list">
+                            {% for category in categories %}
+                            <li><a href="{% url 'news' category.slug %}"> 
+                                <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i><span>{{ category.name }}</span></a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="blog-search wow fadeInRight animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+                        <h2>Search</h2>
+                        <form>
+                            <input type="text" placeholder="SEARCH" name="search">
+
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+
+                    </div>
+
+                    <div class="latest-blog wow fadeInRight animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+
+                        <h2>Latest Blogs</h2>
+                        {% for latest in latest_news %}
+                        <div class="blog-calendar">
+
+                            <div class="calendar-img">
+                                <a href="{% url 'news_detail' slug=latest.category.slug pk=latest.pk %}">
+                                    <img src="{{ latest.icon }}" alt=""> 
+                                </a>
+                            </div>
+                            <div class="calendar-text">
+                                <h5>{{ latest.created }}</h5>
+                                <span><a href="{% url 'news_detail' slug=latest.category.slug pk=latest.pk %}">{{ latest.title }}</a></span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}  

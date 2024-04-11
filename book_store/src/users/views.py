@@ -6,8 +6,9 @@ from src.users.forms.accounts import (
     AddressForm,
     ChangePasswordForm,
     ResetPasswordCustomForm,
-    PasswordResetConfirmForm
+    PasswordResetConfirmForm,
 )
+from src.users.forms.contact_form import ContactForm
 from django.views.generic import (
     CreateView,
     TemplateView,
@@ -115,11 +116,11 @@ class PasswordResetViewCustom(FormView):
     def form_valid(self, form):
         form.save(request=self.request)
         return super().form_valid(form)
-    
+
     def form_invalid(self, form):
         print(form.errors)
         return super().form_invalid(form)
-    
+
     def post(self, request, *args, **kwargs):
         email = request.POST.get("email")
         user = User.objects.filter(email=email).first()
@@ -151,9 +152,34 @@ class PasswordResetConfirmViewCustom(FormView):
             else:
                 return render(request, self.template_name, {"form": form})
         return HttpResponseRedirect("/users/login/")
-    
+
 
 # Logout View
 def logout_view(request):
     logout(request)
     return redirect("login")
+
+
+class ContactView(FormView):
+    template_name = "users/contact.html"
+    form_class = ContactForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        form.send_email()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+        form = ContactForm(data)
+        if form.is_valid():
+            form.send_email(request)
+            return HttpResponseRedirect("/")
+        return render(request, self.template_name, {"form": form})
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {"form": ContactForm()})
