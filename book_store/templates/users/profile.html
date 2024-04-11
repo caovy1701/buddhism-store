@@ -16,10 +16,16 @@
                                     {{ user.email }} - {% if user.username %}{{ user.username }} {% endif %}
                                 </h4>
                                 <p class="m-b-10">{{ user.date_joined|date:"F d, Y" }}</p>
+                                {% if form %}
+                                <div class="text-danger error-container">
+                                    {% for error in form.items %}
+                                        <span>{{ error.1 }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                    {{ form.errors }}
                     <div class="profile-body">
                         <ul class="nav nav-tabs profile-nav" id="profileNav">
                             <li class="nav-item">
@@ -91,7 +97,7 @@
                                         <div class="form-group
                                         {% if form.new_password1.errors %} has-error {% endif %}">
                                             <label for="new_password1">New Password</label>
-                                            <input type="password" class="form-control" id="new_password1" name="new_password1">
+                                            <input type="password" class="form-control" id="new_password" name="new_password">
                                             {% for error in form.new_password1.errors %}
                                             <span class="help-block
                                             {% if forloop.first %} with-errors {% endif %}">{{ error }}</span>
@@ -100,7 +106,7 @@
                                         <div class="form-group
                                         {% if form.new_password2.errors %} has-error {% endif %}">
                                             <label for="new_password2">Confirm New Password</label>
-                                            <input type="password" class="form-control" id="new_password2" name="new_password2">
+                                            <input type="password" class="form-control" id="confirm_password" name="confirm_password">
                                             {% for error in form.new_password2.errors %}
                                             <span class="help-block
                                             {% if forloop.first %} with-errors {% endif %}">{{ error }}</span>
