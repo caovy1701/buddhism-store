@@ -26,13 +26,17 @@
                 <div class="blog-body wow fadeInLeft animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
 
                     <div class="blog-img">
-                        <a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}"><img src="https://buddhist-html.wrmlabs.com/images/Rectangle550.png" alt=""></a>
+                        {% if new.thumbnail %}
+                        <a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}"><img src="{{ new.thumbnail.url }}" alt=""></a>
+                        {% else %}
+                        <a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}"><img src="#" alt=""></a>
+                        {% endif %}
                     </div>
 
                     <div class="blog-text">
                         <h5><a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}">{{ new.title }}</a></h5>
                         <span>{{ new.created_at }}</span>
-                        <p>{{ new.content|safe|truncatewords:50 }}</p>
+                        <p>{{ new.content|striptags|slice:":200" }}...</p>
                         <a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}" class="blog-btn">Read More</a>
                     </div>
                 </div>
@@ -75,8 +79,15 @@
                         <div class="blog-calendar">
 
                             <div class="calendar-img">
+                                {% if latest.thumbnail %}
                                 <a href="{% url 'news_detail' slug=latest.category.slug pk=latest.pk %}">
-                                    <img src="{{ latest.icon }}" alt=""> 
+                                    <img class="latest-img" src="{{ latest.thumbnail.url }}" alt=""> 
+                                </a>
+                                {% else %}
+                                <a href="{% url 'news_detail' slug=latest.category.slug pk=latest.pk %}">
+                                    <img src="#" alt="">
+                                </a>
+                                {% endif %}
                             </div>
                             <div class="calendar-text">
                                 <h5>{{ latest.created }}</h5>

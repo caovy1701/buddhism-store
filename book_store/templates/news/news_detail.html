@@ -67,13 +67,19 @@
                         <div class="blog-calendar">
 
                             <div class="calendar-img">
+                                {% if latest.thumbnail %}
                                 <a href="{% url 'news_detail' slug=latest.category.slug pk=latest.pk %}">
-                                    <img src="{{ latest.icon }}" alt=""> 
+                                    <img class="latest-img" src="{{ latest.thumbnail.url }}" alt=""> 
                                 </a>
+                                {% else %}
+                                <a href="{% url 'news_detail' slug=latest.category.slug pk=latest.pk %}">
+                                    <img src="#" alt="">
+                                </a>
+                                {% endif %}
                             </div>
                             <div class="calendar-text">
                                 <h5>{{ latest.created }}</h5>
-                                <span><a href="{% url 'news_detail' slug=latest.category.slug pk=latest.pk %}">{{ latest.title }}</a></span>
+                                <span><a href="blog-details.html">{{ latest.title }}</a></span>
                             </div>
                         </div>
                         {% endfor %}

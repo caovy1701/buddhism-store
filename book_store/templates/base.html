@@ -305,5 +305,23 @@
         
 </script>
 
+<script>
+        $(document).ready(function () {
+        $('.blog-content img').each(function () {
+            $(this).css('width', '600px');
+            $(this).css('height', 'auto');
+        });
+    });
+</script>
+
+<script>
+    //rezise image for latest news
+    $(document).ready(function() {
+        $(".calendar-img img.latest-img").each(function() {
+            $(this).css("height", "100px");
+            $(this).css("width", "100px");
+        });
+    });
+</script>
 
 </html>
