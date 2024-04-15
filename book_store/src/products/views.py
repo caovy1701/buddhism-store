@@ -1,14 +1,49 @@
 from typing import Any
-from django.db.models.query import QuerySet
-from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpRequest, HttpResponse
-from django.views.generic import ListView, DetailView, TemplateView
-from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
-from src.products.models import Category, Product, ProductVariant, Media
+from django.contrib.contenttypes.models import ContentType
+from django.views.generic import ListView, DetailView, TemplateView
+from django.contrib.auth import get_user_model
+from src.products.models import (
+    Category,
+    Product,
+    ProductVariant,
+    GenericActivity,
+)
 from src.news.models import News
 
+
+User = get_user_model()
 # Create your views here.
+
+
+def get_activity_class(obj):
+    try:
+        activity = obj
+    except NotImplementedError:
+        activity = None
+    return activity
+
+
+class WishListMixin:
+    """
+    Mixin to include wishlist in context data
+    """
+
+    def get_context_data(self, **kwargs):
+        context = super(WishListMixin, self).get_context_data(**kwargs)
+        content_type = ContentType.objects.get_for_model(model=self.model)
+        object_id = self.kwargs.get("pk")
+        user = self.request.user
+        if user.is_authenticated:
+
+            context["activities"] = user.activities.filter(
+                type=GenericActivity.Type.WISHLIST,
+                content_type=content_type,
+                object_id=object_id,
+            ).first()
+        return context
 
 
 class HomeView(TemplateView):
@@ -37,13 +72,13 @@ class IncludeCategoryMixin(object):
         return context
 
 
-class IncludeRelatedProductsMixin(object):
+class CategoryView(ListView):
     """
-    Mixin to include related products in context data
+    View to display all categories
     """
 
     def get_context_data(self, **kwargs):
-        context = super(IncludeRelatedProductsMixin, self).get_context_data(**kwargs)
+        context = super(CategoryView, self).get_context_data(**kwargs)
         # Get the product slug from the URL and check if it exists
         if product_slug := self.kwargs.get("slug"):
             product = Product.objects.get(slug=product_slug)
@@ -83,7 +118,7 @@ class ProductListView(IncludeCategoryMixin, ListView):
         return context
 
 
-class ProductDetailView(DetailView, IncludeCategoryMixin):
+class ProductDetailView(WishListMixin, DetailView):
     template_name = "product_detail.html"
     model = ProductVariant
     context_object_name = "product"
@@ -99,3 +134,38 @@ class ProductDetailView(DetailView, IncludeCategoryMixin):
         context["product_variant"] = products_variants.get(pk=product_variant_id)
         context["products_related"] = Product.objects.exclude(slug=product_slug)
         return context
+
+    def get_queryset(self):
+        product_slug = self.kwargs.get("slug")
+        return ProductVariant.objects.filter(product__slug=product_slug)
+
+
+def wishlist(request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    if not request.user.is_authenticated:
+        return redirect("login")
+    product_variant_id = kwargs.get("id")
+    product_variant = ProductVariant.objects.get(pk=product_variant_id)
+    user = request.user
+    activity = product_variant.activities.create(
+        user=user, type=GenericActivity.Type.WISHLIST
+    )
+    return redirect(
+        "product-variant-detail",
+        slug=product_variant.product.slug,
+        pk=product_variant.pk,
+    )
+
+
+def un_wishlist(request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    if not request.user.is_authenticated:
+        return redirect("login")
+    product_variant_id = kwargs.get("id")
+    product_variant = ProductVariant.objects.get(pk=product_variant_id)
+    user = request.user
+    activity = product_variant.activities.get(user=user)
+    activity.delete()
+    return redirect(
+        "product-variant-detail",
+        slug=product_variant.product.slug,
+        pk=product_variant.pk,
+    )

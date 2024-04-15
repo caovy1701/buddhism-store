@@ -11,18 +11,30 @@
             <div class="product-content col-md-5 product-left">
                 <div class="product-image-gallery">
                     <div class="product-large-image">
+                        {% if product_variant.image %}
                         <img src="{{ product_variant.image.url }}" alt="image">
+                        {% else %}
+                        <img src="#" alt="image">
+                        {% endif %}
                     </div>
                     <div class="product-thumb-images">
                         <div class="slide-prev up">
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="product-thumb-image active">
+                            {% if product.image %}
                             <img src="{{ product.image.url }}" alt="image">
+                            {% else %}
+                            <img src="#" alt="image">
+                            {% endif %}
                         </div>
                         {% for image in product.media.all|slice:":3" %}
                         <div class="product-thumb-image">
+                            {% if image.file %}
                             <img src="{{ image.file.url }}" alt="image">
+                            {% else %}
+                            <img src="#" alt="image">
+                            {% endif %}
                         </div>
                         {% endfor %}
                         <div class="slide-next down">
@@ -47,7 +59,7 @@
                         <i class="fas fa-star"></i>
                         <span>5.0</span>
                         <span>(1)</span>
-                        <span>Review</span>
+                        <span>Đánh giá</span>
                         <span>|</span>
                     </div>
                     <p class="product-price" id="price-format">{{ product_variant.price }} VND</p>
@@ -58,10 +70,10 @@
                         {{ product_variant.description|linebreaks }}
                     </p>
                     <p class="in-stock">
-                        In stock {{ product_variant.stock }}
+                        Số lượng còn {{ product_variant.stock }}
                     </p>
                     <div class="product-variations">
-                        <label for="variants">Variants</label>
+                        <label for="variants">Phân loại</label>
                         <ul class="product-variation">
                             {% for variant in product_variants %}
                             <li>
@@ -77,19 +89,25 @@
                             <a class="plus btn">+</a>
                         </div>
                         <div class="product-add-to-cart">
-                            <button type="submit" class="add-to-cart btn" name="add-to-cart">Add to cart</button>
+                            <button type="submit" class="add-to-cart btn" name="add-to-cart">Thêm vào giỏ hàng</button>
                         </div>
                     </form>
                     <div class="btn-inner btn-wishlist">
-                        <a href="#" class="wishlist"></a>
+                        {% if activities.type == 'wishlist' %}
+                        <a href="{% url 'unwishlist' id=product_variant.id %}" class="wishlist-active">
+
+                        {% else %}
+                        <a href="{% url 'wishlist' id=product_variant.id %}" class="wishlist">
+                        {% endif %}
                         <span class="wishlist b">
-                            Wishlist
+                            Thêm vào yêu thích
                         </span>
+                        </a>
                     </div>
                     <div class="product-meta">
                         <span class="sku_wrapper">SKU: <span class="sku">{{ product_variant.sku }}</span>
-                        <span class="posted_in">Category: <a href="#">{{ product_variant.product.category }}</a></span>
-                        <span class="tagged_as">Tags: <a href="#">Accessories</a>, <a href="#">Clothing</a>, <a href="#">T-shirt</a></span>
+                        <span class="posted_in">Danh mục: <a href="#">{{ product_variant.product.category }}</a></span>
+                        <!-- <span class="tagged_as">Tags: <a href="#">Accessories</a>, <a href="#">Clothing</a>, <a href="#">T-shirt</a></span> -->
                     </div>
                 </div>
             </div>
@@ -98,13 +116,13 @@
             <div class="tabs-information col-md-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#description">Description</a>
+                        <a class="nav-link active" data-toggle="tab" href="#description">Mô tả</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#">Review</a>
+                        <a class="nav-link" data-toggle="tab" href="#">Đánh Giá</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#">About brands</a>
+                        <a class="nav-link" data-toggle="tab" href="#">Về Thương Hiệu</a>
                     </li>
                 </ul>
                 <div class="tab-content">      
@@ -149,7 +167,7 @@
                                     <h3>Add a review</h3>
                                     <form action="" method="post" id="commentform" class="comment-form" novalidate="">
                                         <div class="comment-form-rating">
-                                            <label for="rating">Your rating</label>
+                                            <label for="rating">Số sao đánh giá</label>
                                             <div id="full-stars">
                                                 <div class="rating-group">
                                                     <input class="rating__input rating__input--none" name="rating" id="rating-none" value="0" type="radio">
@@ -169,7 +187,7 @@
                                             </div>
                                         </div>
                                         <div class="comment-form-comment">
-                                            <label for="comment">Your review</label>
+                                            <label for="comment">Đánh giá của bạn</label>
                                             <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required=""></textarea>
                                         </div>
                                         <div class="comment-form-author">
@@ -196,7 +214,7 @@
         </div>
         <div class="row">
             <div class="products-container products-related relation col-md-12">
-                <h2>Related Products</h2>
+                <h2>Sản phẩm liên quan</h2>
                 <ul class="products-grid products-grid-5">
                     {% for product_related in products_related %}
                     <li class="entry">
@@ -216,19 +234,19 @@
                                         <div class="btn-inner btn-add-to-cart">
                                             <a href="#" class="add-to-cart"></a>
                                             <div class="tooltip for-add-to-cart">
-                                                Add to Cart
+                                                Thêm vào giỏ hàng
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-read-more">
                                             <a href="{{ product_related.variants.first.get_absolute_url }}" class="read-more" title="Read More">Read More</a>
                                             <div class="tooltip for-read-more">
-                                                Read More
+                                                Xem chi tiết
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-wishlist">
-                                            <a href="#" class="wishlist" title="Wishlist">Wishlist</a>
+                                            <a href="{% url 'wishlist' id=product_related.variants.first.id %}" class="wishlist"></a>
                                             <div class="tooltip for-wishlist">
-                                                Wishlist
+                                                Thêm vào yêu thích
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +260,7 @@
                                 <li class="product-price">
                                     <span class="price" id="price-format">{{ product_related.variants.first.price }} VND</span>
                                     <div class="unit-sold">
-                                        <span>{{ product_related.variants.first.unit_sold }} 20 sold</span>
+                                        <span>{{ product_related.variants.first.unit_sold }} sold</span>
                                     </div>
                                 </li>
                             </ul>
@@ -257,4 +275,3 @@
 </section>
 
 {% endblock %} 
-
