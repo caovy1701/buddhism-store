@@ -1,8 +1,13 @@
 from django.contrib import admin
+from src.products.models import (
+    Category,
+    GenericActivity,
+    Media,
+    Product,
+    ProductVariant,
+)
 
 # Register your models here.
-
-from src.products.models import Product, Category, ProductVariant, Media
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -33,7 +38,18 @@ class MediaAdmin(admin.ModelAdmin):
     ]
 
 
+class GenericActivityAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "user",
+        "content_type",
+        "object_id",
+        "type",
+    ]
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(ProductVariant, ProductVariantAdmin)
 admin.site.register(Media, MediaAdmin)
+admin.site.register(GenericActivity, GenericActivityAdmin)

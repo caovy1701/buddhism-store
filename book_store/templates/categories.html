@@ -33,7 +33,7 @@
                                             {% if product.image %}
                                             <img src="{{ product.image.url }}" alt="image">
                                             {% else %}
-                                            <img src="https://delivery.pizza4ps.com/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fdelivery-system-v2%2F03-04-2022-Image%2F10000009_2.jpg&w=1920&q=75" alt="image">
+                                            <img src="#" alt="image">
                                             {% endif %}
                                         </a>
                                     </div>
@@ -41,19 +41,19 @@
                                         <div class="btn-inner btn-add-to-cart">
                                             <a href="#" class="add-to-cart"></a>
                                             <div class="tooltip for-add-to-cart">
-                                                Add to Cart
+                                                Thêm vào giỏ hàng
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-read-more">
-                                            <a href="{{ product.variants.first.get_absolute_url }}" class="read-more" title="Read More">Read More</a>
+                                            <a href="{{ product.variants.first.get_absolute_url }}" class="read-more" title="Read More">Xem chi tiết</a>
                                             <div class="tooltip for-read-more">
-                                                Read More
+                                                Xem chi tiết
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-wishlist">
-                                            <a href="#" class="wishlist" title="Wishlist">Wishlist</a>
+                                            <a href="#" class="wishlist" title="Wishlist">Thêm vào yêu thích</a>
                                             <div class="tooltip for-wishlist">
-                                                Wishlist
+                                                Thêm vào yêu thích
                                             </div>
                                         </div>
                                     </div>
@@ -67,7 +67,9 @@
                                 <li class="product-price">
                                     <span class="price" id="price-format">{{ product.variants.first.price }} VND</span>
                                     <div class="unit-sold">
-                                        <span>{{ product.variants.first.unit_sold }} 20 solds</span>
+                                        <span>
+                                            Đã bán {{ product.variants.first.unit_sold }} sản phẩm
+                                        </span>
                                     </div>
                                 </li>
                             </ul>

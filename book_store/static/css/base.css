@@ -2165,10 +2165,41 @@ ul.pagination li a.active {
     color: #f1c40f;
 }
 
-.product-detail .product-summary .btn-inner a.wishlist {
-    font-size: 20px;
-    text-decoration: none;
+.product-detail .product-summary .btn-wishlist {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
     color: #000;
+}
+
+.product-detail .product-summary .btn-wishlist a {
+    text-decoration: none;
+}
+
+.product-detail .product-summary .btn-wishlist a.wishlist-active  {
+    color: #f1c40f;
+}
+
+.product-detail .product-summary .btn-wishlist a.wishlist-active:hover {
+    color: #000;
+}
+
+.product-detail .product-summary .btn-wishlist a.wishlist {
+    font-size: 20px;
+    font-weight: 400;
+    margin-right: 10px;
+    color: #000;
+}
+
+.product-detail .product-summary .btn-wishlist a.wishlist:hover {
+    color: #f1c40f;
+}
+
+.product-detail .product-summary .btn-inner a.wishlist::before {
+    content: "\e08a";
+    vertical-align: -3px;
+    margin-right: 8px;
+    font-family: 'Simple-Line-Icons';
 }
 
 .product-detail .product-summary .btn-inner a::before {

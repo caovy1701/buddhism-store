@@ -1,12 +1,14 @@
-from django.db import models
+import uuid
+
 from categories.models import CategoryBase
-from django.utils.text import slugify
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.fields import ArrayField
+from django.db import models
+from django.utils.text import slugify
 
-import os
-import uuid
+User = get_user_model()
 
 
 def upload_category_icon(instance, filename):
@@ -58,11 +60,16 @@ class GenericActivity(TimeStampModel):
         RATE = "rate"
         REVIEW = "review"
 
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="activities", null=True
+    )
     type = models.CharField(max_length=10, choices=Type.choices)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="activities"
+    )
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
-    rating = models.PositiveIntegerField(default=0)
+    rating = models.PositiveIntegerField(default=0, blank=True, null=True)
 
     class Meta:
         verbose_name = "Generic Activity"
@@ -77,6 +84,7 @@ class Category(CategoryBase, TimeStampModel):
     description = models.TextField(blank=True, null=True)
     slug = models.SlugField(unique=True)
     icon = models.ImageField(upload_to=upload_category_icon, blank=True, null=True)
+    active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Category"
@@ -97,6 +105,7 @@ class Product(TimeStampModel):
     description = models.TextField(blank=True, null=True)
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to=product_image_upload, blank=True, null=True)
+    active = models.BooleanField(default=True)
 
     category = models.ForeignKey(
         Category,
@@ -129,6 +138,10 @@ class ProductVariant(TimeStampModel):
         upload_to=product_variant_image_upload, blank=True, null=True
     )
 
+    activities = GenericRelation(
+        GenericActivity,
+        related_query_name="product_variant",
+    )
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="variants"
     )
@@ -137,6 +150,9 @@ class ProductVariant(TimeStampModel):
 
     stock = models.PositiveIntegerField(default=0)
     price = models.DecimalField(max_digits=100, decimal_places=0, default=0)
+    active = models.BooleanField(default=True)
+    total_rating = models.PositiveIntegerField(default=0)
+    unit_sold = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = "Product Variant"
@@ -151,7 +167,6 @@ class ProductVariant(TimeStampModel):
         super(ProductVariant, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        # url /product/product-slug/varaint/variant-id
         return f"/shop/product/{self.product.slug}/variant/{self.pk}"
 
 
@@ -173,3 +188,20 @@ class Media(TimeStampModel):
 
     def __str__(self):
         return self.file.name
+
+
+class Review(TimeStampModel):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="reviews", null=True
+    )
+    product_variant = models.ForeignKey(
+        ProductVariant, on_delete=models.CASCADE, related_name="reviews"
+    )
+    review = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Review"
+        verbose_name_plural = "Reviews"
+
+    def __str__(self):
+        return f"{self.user} - {self.product_variant}"

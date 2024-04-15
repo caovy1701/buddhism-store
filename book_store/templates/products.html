@@ -14,13 +14,13 @@
                     <h2>{{ category.name }}</h2>
                     <div class="toolbar">
                         <div class="sorter-view">
-                            <a href="shop-list.html" class="active"><i class="fa fa-th-list"></i></a>
-                            <a href="shop-grid.html"><i class="fa fa-th"></i></a>
+                            <a href="#" class="active"><i class="fa fa-th-list"></i></a>
+                            <a href="#"><i class="fa fa-th"></i></a>
                         </div>
                         <div class="showing">
                             <ul>
                                 <div class="showing-label">
-                                    <li class="showing-label">Showing:</li>
+                                    <li class="showing-label">Hiển thị</li>
                                 </div>
                                 <li><a href="?show=1" class="showing-active">12</a></li>
                                 <li><a href="?show=2" class ="showing-active">24</a></li>
@@ -29,9 +29,9 @@
                         </div>
                         <div class="sorter">
                             <select>
-                                <option value="default-sorting">Default Sorting</option>
-                                <option value="name">Name</option>
-                                <option value="price">Price</option>
+                                <option value="default-sorting">Sắp xếp theo mặc định</option>
+                                <option value="name">Tên</option>
+                                <option value="price">Giá</option>
                             </select>
                         </div>
                     </div>
@@ -64,15 +64,15 @@
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-read-more">
-                                            <a href="{{ product.variants.first.get_absolute_url }}" class="read-more" title="Read More">Read More</a>
+                                            <a href="{{ product.variants.first.get_absolute_url }}" class="read-more" title="Read More">Xem chi tiết</a>
                                             <div class="tooltip for-read-more">
-                                                Read More
+                                                Xem chi tiết
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-wishlist">
-                                            <a href="#" class="wishlist" title="Wishlist">Wishlist</a>
+                                            <a href="#" class="wishlist" title="Wishlist">Thêm vào yêu thích</a>
                                             <div class="tooltip for-wishlist">
-                                                Wishlist
+                                                Thêm vào yêu thích
                                             </div>
                                         </div>
                                     </div>
@@ -86,7 +86,9 @@
                                 <li class="product-price">
                                     <span class="price" id="price-format">{{ product.variants.first.price }} VND</span>
                                     <div class="unit-sold">
-                                        <span>{{ product.variants.first.unit_sold }} 20 solds</span>
+                                        <span>
+                                            Đã bán {{ product.variants.first.unit_sold }} sản phẩm
+                                        </span>
                                     </div>
                                 </li>
                             </ul>
@@ -100,8 +102,8 @@
             <div class="pagination-con col-md-12" id="pagination-con">
                 <ul class="pagination" id="pagination">
                     {% if paginator.has_previous %}
-                    <li><a href="?page=1">First</a></li>
-                    <li><a href="?page={{ paginator.previous_page_number }}">Previous</a></li>
+                    <li><a href="?page=1">Trang đầu</a></li>
+                    <li><a href="?page={{ paginator.previous_page_number }}">Trang trước</a></li>
                     {% endif %}
                     {% for num in paginator.page_range %}
                     {% if num == page_obj.number %}
@@ -121,8 +123,8 @@
                     {% endif %}
                     {% endfor %}
                     {% if paginator.has_next %}
-                    <li><a href="?page={{ paginator.next_page_number }}">Next</a></li>
-                    <li><a href="?page={{ paginator.num_pages }}">Last</a></li>
+                    <li><a href="?page={{ paginator.next_page_number }}"> Trang sau</a></li>
+                    <li><a href="?page={{ paginator.num_pages }}">Trang cuối</a></li>
                     {% endif %}
                 </ul>
             </div>
