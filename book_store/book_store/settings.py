@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "src.products",
     "src.users",
     "src.news",
+    "src.wallet",
 ]
 
 MIDDLEWARE = [
