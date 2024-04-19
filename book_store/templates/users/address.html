@@ -1,0 +1,85 @@
+<div class="content mb-20">
+    <!-- Address -->
+    <div class="address">
+        <div class="row">
+            <div class="col-md-6">
+                <form id="address-form" action="" method="POST" name="address-form">
+                    {% csrf_token %}
+                    <div class="form-group mb-20">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" value="{{ address.address }}" disabled name="address">
+                    </div>
+                    <div class="form-group mb-20">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" value="{{ address.city }}" disabled name="city">
+                    </div>
+                    <div class="form-group mb-20">
+                        <label for="district">District</label>
+                        <input type="text" class="form-control" id="district" value="{{ address.district }}" disabled name="district">
+                    </div>
+                    <div class="form-group mb-20">
+                        <label for="ward">Ward</label>
+                        <input type="text" class="form-control" id="ward" value="{{ address.ward }}" disabled name="ward">
+                    </div>
+                    <div class="form-group mb-20">
+                        <label for="street">Street</label>
+                        <input type="text" class="form-control" id="street" value="{{ address.street }}" disabled name="street">
+                    </div>
+                    <div class="form-group mb-20">
+                        <label for="note">Note</label>
+                        <textarea class="form-control" id="note" disabled name="note">{{ address.note }}</textarea>
+                    </div>
+                    <div class="form-group mb-20">
+                        <label for="is_default">Set this address as default</label>
+                        {% if address.is_default %}
+                        <input type="checkbox" class="form-control" id="is_default" checked disabled name="is_default">
+                        {% else %}
+                        <input type="checkbox" class="form-control" id="is_default" disabled name="is_default">
+                        {% endif %}
+                    </div>
+                </form>
+                <div class="form-group mb-20">
+                    {% if address.id %}
+                    <button class="btn btn-primary" id="edit-address">Edit Address</button>
+                    {% endif %}
+                    <button class="btn btn-success" id="save-address" style="display: none;">Save Address</button>
+                    <!-- Add More Address -->
+                    {% if not address.id %}
+                    <button class="btn btn-primary" id="add-address">Add Address</button>
+                    {% else %}
+                    <!--button return to address -->
+                    <a href="{% url 'address' %}" class="btn btn-primary">Add Address</a>
+                    {% endif %}
+                    <button class="btn btn-danger" id="cancel-address" style="display: none;">Cancel</button>
+                </div>
+                {% if address.id %}
+                <form id="delete-address-form" action="{% url 'delete_address' address.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group mb-20">
+                        <button class="btn btn-danger" id="delete-address" type="submit">Delete Address</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div class="address-list">
+                    <h4>Address List</h4>
+                    <ul class="list-group mt-20">
+                        {% for address in addresses %}
+                        <li class="list-group-item">
+                            <a href="{% url 'address' address.id %}">
+                                <h5>{{ address.address }}</h5>
+                                <p>{{ address.city }}, {{ address.district }}, {{ address.ward }}</p>
+                            </a>
+                        {% if address.id == user.address.id %}
+                        <span class="badge badge-primary">Default</span>
+                        {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

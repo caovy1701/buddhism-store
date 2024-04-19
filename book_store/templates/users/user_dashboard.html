@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<section class="section-dashboard-head tab-list-right pt-90 pb-90 wow fadeInUp animated animated" data-wow-delay="250ms" data-wow-duration="500ms" style="visibility: visible; animation-duration: 500ms; animation-delay: 250ms;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="banner-head text-center">
+                    <h2>Customer Account</h2>
+                    <h4><a href="{% url 'home' %}"><span>Home <i class="fa fa-angle-right"></i></span></a> {{ url|title }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-dashboard pt-90 pb-90 wow fadeInUp animated animated" data-wow-delay="250ms" data-wow-duration="500ms" style="visibility: visible; animation-duration: 500ms; animation-delay: 250ms;">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="dashboard-sidebar card">
+                    <div class="header text-center pt-20 pb-20">
+                        <h4>Welcome, {{ user.username }}</h4>
+                    </div>
+                    <div class="list-group">
+                        <a href="{% url 'profile' %}" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user"></i> Profile
+                        </a>
+                        <a href="" class="list-group-item list-group-item-action">
+                            <i class="fa fa-shopping-cart"></i> Orders
+                        </a>
+                        <a href="" class="list-group-item list-group-item-action">
+                            <i class="fa fa-heart"></i> Wishlist
+                        </a>
+                        <!-- Wallet -->
+                        <a href="" class="list-group-item list-group-item-action">
+                            <i class='fas fa-wallet'></i> Wallet
+                        </a>
+                        <!-- Address -->
+                        <a href="{% url 'address' %}" class="list-group-item list-group-item-action">
+                            <i class="fa fa-map-marker"></i> Address
+                        </a>
+                        <!-- Account -->
+                        <a href="{% url 'account' %}" class="list-group-item list-group-item-action">
+                            <i class="fa fa-cog"></i> Account
+                        </a>
+                        <!-- Logout -->
+                        <a href="" class="list-group-item list-group-item-action text-danger">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </a>
+                    </div>
+                    <div class="footer text-center pt-20 pb-20">
+                        <p>© 2021 <a href="">Ecommerce</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="dashboard-content">
+                    {% if 'profile' in request.path %}
+                    {% include 'users/profile.html' %}
+                    {% elif 'address' in request.path %}
+                    {% include 'users/address.html' %}
+                    {% elif 'account' in request.path %}
+                    {% include 'users/account.html' %}
+                    
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+
+
+    .section-dashboard-head {
+        background-image: url("{% static 'images/top-image.png' %}");
+        background-size: cover;
+        background-position: center;
+    }
+
+    .section-dashboard-head h2 {
+        color: #fff;
+    }
+
+    .information-user {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .information-user .form-group {
+        margin-bottom: 20px;
+    }
+
+    .information-user .form-group label {
+        font-weight: 600;
+    }
+
+    .information-user .form-group input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .information-user .form-group input:focus {
+        border: 1px solid #007bff;
+    }
+
+    /* background color when disable */
+    .information-user .form-group input:disabled {
+        background-color: #F4F2EF;
+        color: #000;
+    }
+
+    .information-user .form-group input[type="text"] {
+        padding: 10px;
+    }
+
+    .information-user .form-group input[type="email"] {
+        padding: 10px;
+    }
+
+    .information-user .form-group input[type="password"] {
+        padding: 10px;
+    }
+
+    .information-user .form-group input[type="submit"] {
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+    }
+
+    .information-user .form-group input[type="submit"]:hover {
+        background-color: #0056b3;
+        border: 1px solid #0056b3;
+    }
+
+    .information-user .form-group input[type="file"] {
+        padding: 3px;
+
+    }
+
+    .information-user .form-group img {
+        border-radius: 5px;
+        align-items: center;
+        background-position: center;
+    }
+
+    .information-user .form-group p {
+        color: red;
+    }
+
+    .information-user .form-group input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+
+    .information-user .form-group input[type="checkbox"]:checked {
+        background-color: #007bff;
+    }
+
+    .information-user .form-group input[type="checkbox"]:checked:after {
+        content: '\2713';
+        color: #fff;
+        font-size: 15px;
+    }
+
+    .information-user .form-group input[type="checkbox"]:disabled {
+        background-color: #ccc;
+    }
+
+    .information-user .form-group input[type="checkbox"]:disabled:checked {
+        background-color: #007bff;
+    }
+
+    .information-user .form-group input[type="checkbox"]:disabled:checked:after {
+        content: '\2713';
+        color: #fff;
+        font-size: 15px;
+    }
+
+    .information-user .form-group input[type="checkbox"]:disabled:after {
+        content: '\2713';
+        color: #fff;
+        font-size: 15px;
+    }
+
+</style>
+{% endblock %}
+
