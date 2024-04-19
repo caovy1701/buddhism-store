@@ -1,25 +1,27 @@
-from django.shortcuts import render, redirect
-from src.users.models import User, Address
-from src.users.forms.accounts import (
-    CustomUserCreationForm,
-    UserProfileUpdateForm,
-    AddressForm,
-    ChangePasswordForm,
-    ResetPasswordCustomForm,
-    PasswordResetConfirmForm,
-)
-from src.users.forms.contact_form import ContactForm
+from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.tokens import default_token_generator
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.http import urlsafe_base64_decode
 from django.views.generic import (
     CreateView,
-    TemplateView,
+    DeleteView,
     FormView,
+    RedirectView,
+    TemplateView,
+    UpdateView,
 )
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
-from django.contrib.auth import logout, get_user_model
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_decode
+from src.users.forms.accounts import (
+    AddressForm,
+    ChangePasswordForm,
+    CustomUserCreationForm,
+    PasswordResetConfirmForm,
+    ResetPasswordCustomForm,
+    UserProfileUpdateForm,
+)
+from src.users.forms.contact_form import ContactForm
+from src.users.models import Address, User
 
 # Create your views here.
 
@@ -39,7 +41,6 @@ class UserCreateView(CreateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        print(form.errors)
         return super().form_invalid(form)
 
 
@@ -51,61 +52,113 @@ class LoginViewCustom(TemplateView):
         email = request.POST.get("email")
         password = request.POST.get("password")
         user = authenticate(email=email, password=password)
-        print(user)
         if user:
             login(request, user)
             return HttpResponseRedirect("/")
         message = "Invalid credentials"
-        print(message)
         return render(request, self.template_name, {"message": message})
 
     def get(self, request, *args, **kwargs):
+        user = request.user
         return render(request, self.template_name, {})
 
 
 # Profile View
-class ProfileView(LoginRequiredMixin, FormView):
-    template_name = "users/profile.html"
-    success_url = "/users/profile/"
-
-    def post(self, request, *args, **kwargs):
-        type_form = request.POST.get("type")
-        user = request.user
-        address = Address.objects.filter(user=user).first()
-        # check user has address
-        if not address:
-            address = Address(user=user)
-            address.save()
-
-        if type_form == "profile":
-            profile_form = UserProfileUpdateForm(request.POST, instance=user)
-            if profile_form.is_valid():
-                profile_form.save()
-                return redirect("profile")
-            else:
-                form = profile_form.errors
-        elif type_form == "address":
-            address_form = AddressForm(request.POST, instance=address)
-            if address_form.is_valid():
-                address_form.save()
-                return redirect("profile")
-            else:
-                form = address_form.errors
-        elif type_form == "password_change":
-            password_form = ChangePasswordForm(request.POST, instance=user)
-            if password_form.is_valid():
-                password_form.save()
-                # logout user
-                logout(request)
-                return redirect("profile")
-            else:
-                form = password_form.errors
-        return render(request, self.template_name, {"form": form})
+class ProfileView(LoginRequiredMixin, RedirectView):
+    template_name = "users/user_dashboard.html"
+    form_class = UserProfileUpdateForm
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        address = Address.objects.filter(user=user).first()
-        return render(request, self.template_name, {"user": user, "address": address})
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        form = UserProfileUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.update()
+            return redirect("profile")
+        messages = form.errors
+        return render(request, self.template_name, {"messages": messages})
+
+
+class PasswordChangeView(LoginRequiredMixin, RedirectView):
+    template_name = "users/user_dashboard.html"
+    form_class = ChangePasswordForm
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("account")
+        messages = form.errors
+        return render(request, self.template_name, {"messages": messages})
+
+
+class CreateAddressView(LoginRequiredMixin, CreateView):
+    template_name = "users/user_dashboard.html"
+    form_class = AddressForm
+    model = Address
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        addresses = Address.objects.filter(user=user)
+        if kwargs.get("pk"):
+            address = Address.objects.get(pk=kwargs.get("pk"))
+            return render(
+                request,
+                self.template_name,
+                {"addresses": addresses, "address": address},
+            )
+        return render(request, self.template_name, {"addresses": addresses})
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            form.save(user)
+            return redirect("address")
+        messages = form.errors
+        return render(request, self.template_name, {"messages": messages})
+
+
+class UpdateAddressView(LoginRequiredMixin, UpdateView):
+    template_name = "users/user_dashboard.html"
+    form_class = AddressForm
+    model = Address
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        addresses = Address.objects.filter(user=user)
+        address = Address.objects.get(pk=kwargs.get("pk"))
+        return render(
+            request, self.template_name, {"addresses": addresses, "address": address}
+        )
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        address = Address.objects.get(pk=kwargs.get("pk"))
+        form = AddressForm(request.POST, instance=address)
+        if form.is_valid():
+            form.save(user)
+            return redirect("address")
+        messages = form.errors
+        return render(request, self.template_name, {"messages": messages})
+
+
+class DeleteAddressView(LoginRequiredMixin, DeleteView):
+    template_name = "users/user_dashboard.html"
+    model = Address
+
+    def post(self, request, *args, **kwargs):
+        address = Address.objects.get(pk=kwargs.get("pk"))
+        address.delete()
+        return redirect("address")
 
 
 class PasswordResetViewCustom(FormView):
@@ -118,7 +171,6 @@ class PasswordResetViewCustom(FormView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        print(form.errors)
         return super().form_invalid(form)
 
     def post(self, request, *args, **kwargs):
@@ -170,7 +222,6 @@ class ContactView(FormView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        print(form.errors)
         return super().form_invalid(form)
 
     def post(self, request, *args, **kwargs):

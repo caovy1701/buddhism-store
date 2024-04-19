@@ -14,7 +14,7 @@
   <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/default.css' %}">
-  <!-- <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
   <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
@@ -324,4 +324,109 @@
     });
 </script>
 
+
+<script>
+    $(document).ready(function() {
+        $('#edit-profile').click(function() {
+            $('#first_name').prop('disabled', false);
+            $('#last_name').prop('disabled', false);
+            $('#email').prop('disabled', false);
+            $('#username').prop('disabled', false);
+            $('#phone_number').prop('disabled', false);
+            $('#address').prop('disabled', false);
+            $('#city').prop('disabled', false);
+            $('#district').prop('disabled', false);
+            $('#street').prop('disabled', false);
+            $('#ward').prop('disabled', false);
+            $('#zip_code').prop('disabled', false);
+            $('#edit-profile').hide();
+            $('#save-profile').show();
+            $('#cancel-profile').show();
+            $('#avatar').prop('disabled', false);
+            //scroll to top
+            $('html, body').animate({
+                scrollTop: 0
+            }, 800);
+        });
+
+        $('#cancel-profile').click(function() {
+            $('#first_name').prop('disabled', true);
+            $('#last_name').prop('disabled', true);
+            $('#email').prop('disabled', true);
+            $('#username').prop('disabled', true);
+            $('#phone_number').prop('disabled', true);
+            $('#address').prop('disabled', true);
+            $('#city').prop('disabled', true);
+            $('#district').prop('disabled', true);
+            $('#street').prop('disabled', true);
+            $('#ward').prop('disabled', true);
+            $('#zip_code').prop('disabled', true);
+            $('#edit-profile').show();
+            $('#save-profile').hide();
+            $('#cancel-profile').hide();
+            $('#avatar').prop('disabled', true);
+        });
+        
+        $('#cancel-profile').click(function() {
+            $('#first_name').val('');
+            $('#last_name').val('');
+            $('#email').val('');
+            $('#username').val('');
+            $('#phone_number').val('');
+            $('#address').val('');
+            $('#city').val('');
+            $('#district').val('');
+            $('#street').val('');
+            $('#ward').val('');
+            $('#zip_code').val('');
+            $('#avatar').val('');
+        });
+
+        //save profile
+        $('#save-profile').on('click', function() {
+            $('#profile-form').submit();
+        });
+
+        // Add Address
+        $('#add-address').click(function() {
+            $('#address-form input').prop('disabled', false);
+            $('#address-form textarea').prop('disabled', false);
+            $('#edit-address').hide();
+            $('#save-address').show();
+            $('#add-address').hide();
+            $('#cancel-address').show();
+            $('#is_default').prop('disabled', false);
+        });
+
+        // Save Address
+        $('#save-address').click(function() {
+            $('#address-form').submit();
+        });
+
+        // Edit Address
+        $('#edit-address').click(function() {
+            $('#address-form input').prop('disabled', false);
+            $('#address-form textarea').prop('disabled', false);
+            $('#edit-address').hide();
+            $('#save-address').show();
+            $('#add-address').hide();
+            $('#cancel-address').show();
+            $('#is_default').prop('disabled', false);
+        });
+
+        // Cancel Address
+        $('#cancel-address').click(function() {
+            $('#address-form input').prop('disabled', true);
+            $('#address-form textarea').prop('disabled', true);
+            $('#edit-address').show();
+            $('#save-address').hide();
+            $('#add-address').show();
+            $('#cancel-address').hide();
+            $('#is_default').prop('disabled', true);
+        });
+
+    });
+
+
+</script>
 </html>
