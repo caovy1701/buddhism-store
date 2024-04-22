@@ -1,18 +1,20 @@
 from typing import Any
-from django.shortcuts import redirect
-from django.http import HttpRequest, HttpResponse
-from django.views.generic.base import TemplateView
-from django.contrib.contenttypes.models import ContentType
-from django.views.generic import ListView, DetailView, TemplateView
-from django.contrib.auth import get_user_model
-from src.products.models import (
-    Category,
-    Product,
-    ProductVariant,
-    GenericActivity,
-)
-from src.news.models import News
 
+from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    TemplateView,
+)
+from django.views.generic.base import TemplateView
+
+from src.news.models import News
+from src.products.models import Category, GenericActivity, Product, ProductVariant
 
 User = get_user_model()
 # Create your views here.
@@ -32,6 +34,7 @@ class WishListMixin:
     """
 
     def get_context_data(self, **kwargs):
+        print("WishListMixin")
         context = super(WishListMixin, self).get_context_data(**kwargs)
         content_type = ContentType.objects.get_for_model(model=self.model)
         object_id = self.kwargs.get("pk")
@@ -43,6 +46,7 @@ class WishListMixin:
                 content_type=content_type,
                 object_id=object_id,
             ).first()
+        print(context["activities"])
         return context
 
 
@@ -72,23 +76,7 @@ class IncludeCategoryMixin(object):
         return context
 
 
-class CategoryView(ListView):
-    """
-    View to display all categories
-    """
-
-    def get_context_data(self, **kwargs):
-        context = super(CategoryView, self).get_context_data(**kwargs)
-        # Get the product slug from the URL and check if it exists
-        if product_slug := self.kwargs.get("slug"):
-            product = Product.objects.get(slug=product_slug)
-            context["related_products"] = Product.objects.filter(
-                category=product.category
-            )
-        return context
-
-
-class CategoryView(ListView):
+class CategoryView(WishListMixin, ListView):
     template_name = "categories.html"
     model = Category
     context_object_name = "categories"
@@ -100,7 +88,7 @@ class CategoryView(ListView):
         return context
 
 
-class ProductListView(IncludeCategoryMixin, ListView):
+class ProductListView(WishListMixin, IncludeCategoryMixin, ListView):
     template_name = "products.html"
     model = Product
     context_object_name = "products"
@@ -140,32 +128,47 @@ class ProductDetailView(WishListMixin, DetailView):
         return ProductVariant.objects.filter(product__slug=product_slug)
 
 
-def wishlist(request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-    if not request.user.is_authenticated:
-        return redirect("login")
-    product_variant_id = kwargs.get("id")
-    product_variant = ProductVariant.objects.get(pk=product_variant_id)
-    user = request.user
-    activity = product_variant.activities.create(
-        user=user, type=GenericActivity.Type.WISHLIST
-    )
-    return redirect(
-        "product-variant-detail",
-        slug=product_variant.product.slug,
-        pk=product_variant.pk,
-    )
+class WishListView(CreateView):
+    model = ProductVariant
+    fields = ["type", "content_type", "object_id"]
+    template_name = "product_detail.html"
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        user = request.user
+        product_variant = self.get_queryset().first()
+        activity = product_variant.activities.create(
+            user=user, type=GenericActivity.Type.WISHLIST
+        )
+        activity.save()
+        return redirect(
+            "product-variant-detail",
+            slug=product_variant.product.slug,
+            pk=product_variant.pk,
+        )
+
+    def get_queryset(self):
+        product_variant_id = self.kwargs.get("id")
+        return ProductVariant.objects.filter(pk=product_variant_id)
 
 
-def un_wishlist(request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-    if not request.user.is_authenticated:
-        return redirect("login")
-    product_variant_id = kwargs.get("id")
-    product_variant = ProductVariant.objects.get(pk=product_variant_id)
-    user = request.user
-    activity = product_variant.activities.get(user=user)
-    activity.delete()
-    return redirect(
-        "product-variant-detail",
-        slug=product_variant.product.slug,
-        pk=product_variant.pk,
-    )
+class WishListDeleteView(DeleteView):
+    model = ProductVariant
+    template_name = "product_detail.html"
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        user = request.user
+        product_variant = self.get_queryset().first()
+        activity = product_variant.activities.filter(
+            user=user, type=GenericActivity.Type.WISHLIST
+        ).first()
+        activity.delete()
+
+        return redirect(
+            "product-variant-detail",
+            slug=activity.content_object.product.slug,
+            pk=activity.content_object.pk,
+        )
+
+    def get_queryset(self):
+        product_variant_id = self.kwargs.get("id")
+        return ProductVariant.objects.filter(pk=product_variant_id)

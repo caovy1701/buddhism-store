@@ -244,10 +244,17 @@
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-wishlist">
+                                            {% if activities.type == 'wishlist' %}
+                                            <a href="{% url 'unwishlist' id=product_related.variants.first.id %}" class="wishlist-active"></a>
+                                            <div class="tooltip for-wishlist">
+                                                Bỏ yêu thích
+                                            </div>
+                                            {% else %}
                                             <a href="{% url 'wishlist' id=product_related.variants.first.id %}" class="wishlist"></a>
                                             <div class="tooltip for-wishlist">
                                                 Thêm vào yêu thích
                                             </div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </li> 

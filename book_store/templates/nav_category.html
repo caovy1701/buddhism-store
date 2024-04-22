@@ -2,29 +2,34 @@
 <section class="welcome-events pt-90 pb-90 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
     <div class="container">
         <div class="row">
-
             <div class="col-sm-12">
-
-
                 <div class="banner-head">
                     {% if category.name %}
-                    <h2> {{ category.name }}</h2>
-                    <h4><a href="{% url 'home' %}"><span>Trang chủ <i class="fa fa-angle-right"></i></span></a> {{ category.name }}</h4>
-                    {% elif product.name %}
-                    <h2> {{ product.name }}</h2>
+                    <h2>{{ category.name }}</h2>
                     <h4>
-                        <a href="{% url 'home' %}"><span>Trang chủ <i class="fa fa-angle-right"></i></span></a>
-                        <a href=""><span>Sản phẩm <i class="fa fa-angle-right"></i></span></a>
+                        <a href="{% url 'home' %}">Trang chủ <i class="fa fa-angle-right"></i></a>
+                        {{ category.name }}
+                    </h4>
+                    {% elif product.name %}
+                    <h2>{{ product.name }}</h2>
+                    <h4>
+                        <a href="{% url 'home' %}">Trang chủ <i class="fa fa-angle-right"></i></a>
+                        <a href="">Sản phẩm <i class="fa fa-angle-right"></i></a>
                         {{ product.name }}
+                    </h4>
                     {% else %}
-                    <h2>  Sách vở &amp; Sản phẩm </h2>
-                    <h4><a href="{% url 'home' %}"><span>Trang chủ <i class="fa fa-angle-right"></i></span></a> Sách vở &amp; Sản phẩm</h4>
+                    <h2>Sách vở &amp; Sản phẩm</h2>
+                    <h4>
+                        <a href="{% url 'home' %}">Trang chủ <i class="fa fa-angle-right"></i></a>
+                        Sách vở &amp; Sản phẩm
+                    </h4>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 {% if not product %}
 <section class="shop-page-cate pt-90 pb-90">
     <div class="container">
@@ -37,14 +42,14 @@
         </div>
         <div class="row">
             {% for category in categories %}
-            <div class="col-sm-2 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
+            <div class="col-sm-4 col-md-3 wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="900ms" style="visibility: visible; animation-duration: 900ms; animation-delay: 400ms;">
                 <div class="category-content">
                     <a href="{% url 'products-list' category.id %}">
                         <div class="category-img">
                             {% if category.icon %}
-                            <img src="{{ category.icon.url }}" alt="image">
+                            <img src="{{ category.icon.url }}" alt="{{ category.name }}">
                             {% else %}
-                            <img src="" alt="image">
+                            <img src="{% static 'images/default-category.jpg' %}" alt="{{ category.name }}">
                             {% endif %}
                         </div>
                         <div class="category-text">

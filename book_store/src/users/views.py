@@ -2,16 +2,19 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.utils.http import urlsafe_base64_decode
 from django.views.generic import (
     CreateView,
     DeleteView,
     FormView,
+    ListView,
     RedirectView,
     TemplateView,
     UpdateView,
 )
+
+from src.products.models import GenericActivity
 from src.users.forms.accounts import (
     AddressForm,
     ChangePasswordForm,
@@ -107,7 +110,7 @@ class CreateAddressView(LoginRequiredMixin, CreateView):
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        addresses = Address.objects.filter(user=user)
+        addresses = Address.objects.filter(user=user).order_by("-is_default")
         if kwargs.get("pk"):
             address = Address.objects.get(pk=kwargs.get("pk"))
             return render(
@@ -134,7 +137,8 @@ class UpdateAddressView(LoginRequiredMixin, UpdateView):
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        addresses = Address.objects.filter(user=user)
+        addresses = Address.objects.filter(user=user).order_by("-is_default")
+        print(addresses)
         address = Address.objects.get(pk=kwargs.get("pk"))
         return render(
             request, self.template_name, {"addresses": addresses, "address": address}
@@ -234,3 +238,37 @@ class ContactView(FormView):
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, {"form": ContactForm()})
+
+
+class WishlistView(ListView):
+    model = GenericActivity
+    template_name = "users/user_dashboard.html"
+
+    def get(self, request, *args, **kwargs):
+        activity_wishlist = self.get_queryset()
+        return render(request, self.template_name, {"wishlist": activity_wishlist})
+
+    def get_queryset(self):
+        user = self.request.user
+        activity_wishlist = user.activities.filter(type="wishlist")
+        wishlist = [activity.product_variant for activity in activity_wishlist]
+        return wishlist
+
+
+class DeleteWishlistView(DeleteView):
+    model = GenericActivity
+    template_name = "users/user_dashboard.html"
+
+    def get(self, request, *args, **kwargs):
+        activity = self.get_queryset().first()
+        activity.delete()
+        return redirect("wishlist")
+
+    def get_queryset(self):
+        product_variant_id = self.kwargs.get("pk")
+        activity = GenericActivity.objects.filter(
+            object_id=product_variant_id,
+            user=self.request.user,
+            type=GenericActivity.Type.WISHLIST,
+        )
+        return activity

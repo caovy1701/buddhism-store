@@ -1,0 +1,54 @@
+{% load static %}
+
+
+<div class="content mb-2">
+    <!-- Wishlist -->
+    <div class="wishlist">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header text-center">
+                        <h4>Wishlist</h4>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            {% for item in wishlist %}
+                            {% for product in item.all %}
+                            <div class="col-md-4">
+                                <div class="wishlist-item">
+                                    <div class="product-image">
+                                        {% if product.image %}
+                                        <img src="{{ product.image.url }}" alt="Product Image">
+                                        {% else %}
+                                        <img src="{% static 'images/all-products.jpg' %}" alt="Product Image">
+                                        {% endif %}
+                                    </div>
+                                    <div class="product-details">
+                                        <h4>{{ product.name }}</h4>
+                                        <p>{{ product.description }}</p>
+                                    </div>
+                                    <div class="product-price" id="price-format">
+                                        {{ product.price }} VND
+                                    </div>
+                                    <div class="product-stock">
+                                        {% if product.stock > 0 %}
+                                        <span class="text-success">In Stock</span>
+                                        {% else %}
+                                        <span class="text-danger">Out of Stock</span>
+                                        {% endif %}
+                                    <div class="product-action">
+                                        <a href="#" id="add-to-cart" class="btn btn-primary">Add to Cart</a>
+                                        <a href="{% url 'delete_wishlist' product.id %}" class="btn btn-danger">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

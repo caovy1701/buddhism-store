@@ -43,6 +43,7 @@
                     <button class="btn btn-primary" id="edit-address">Edit Address</button>
                     {% endif %}
                     <button class="btn btn-success" id="save-address" style="display: none;">Save Address</button>
+                    <button class="btn btn-danger" id="cancel-address" style="display: none;">Cancel</button>
                     <!-- Add More Address -->
                     {% if not address.id %}
                     <button class="btn btn-primary" id="add-address">Add Address</button>
@@ -50,7 +51,6 @@
                     <!--button return to address -->
                     <a href="{% url 'address' %}" class="btn btn-primary">Add Address</a>
                     {% endif %}
-                    <button class="btn btn-danger" id="cancel-address" style="display: none;">Cancel</button>
                 </div>
                 {% if address.id %}
                 <form id="delete-address-form" action="{% url 'delete_address' address.id %}" method="post">
@@ -66,15 +66,22 @@
                     <h4>Address List</h4>
                     <ul class="list-group mt-20">
                         {% for address in addresses %}
+                        {% if address.is_default %}
                         <li class="list-group-item">
-                            <a href="{% url 'address' address.id %}">
+                            <a href="{% url 'update_address' address.id %}">
                                 <h5>{{ address.address }}</h5>
                                 <p>{{ address.city }}, {{ address.district }}, {{ address.ward }}</p>
                             </a>
-                        {% if address.id == user.address.id %}
                         <span class="badge badge-primary">Default</span>
-                        {% endif %}
                         </li>
+                        {% else %}
+                        <li class="list-group item">
+                            <a href="{% url 'update_address' address.id %}">
+                                <h5>{{ address.address }}</h5>
+                                <p>{{ address.city }}, {{ address.district }}, {{ address.ward }}</p>
+                            </a>
+                        </li>
+                        {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
@@ -82,4 +89,57 @@
         </div>
     </div>
 </div>
+
+<style>
+    .address-list {
+        border: 1px solid #e5e5e5;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .address-list h4 {
+        margin-bottom: 20px;
+    }
+
+    .address-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .address-list li {
+        padding: 10px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .address-list li a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .address-list li a h5 {
+        margin: 0;
+    }
+
+    .address-list li a p {
+        margin: 0;
+    }
+
+    .address-list li span {
+        float: right;
+        margin-top: 5px;
+    }
+
+    .address-list li span.badge-primary {
+        background-color: #007bff;
+    }
+
+    .address-list li span.badge-primary {
+        color: #fff;
+    }
+
+    .address-list li span.badge-primary {
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+</style>
 
