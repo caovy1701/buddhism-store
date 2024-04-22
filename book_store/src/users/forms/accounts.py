@@ -14,6 +14,7 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+
 from src.users.models import Address, User
 
 User = get_user_model()
@@ -82,9 +83,12 @@ class AddressForm(forms.ModelForm):
 
     def save(self, user, *args, **kwargs):
         # check maximum address is 3
-        if Address.objects.filter(user=user).count() >= 3:
-            messages = "You can only add 3 addresses"
-            return messages
+        address_pk = self.instance.pk
+        print(address_pk)
+        if not address_pk:
+            if Address.objects.filter(user=user).count() >= 3:
+                messages.error("You can only have 3 addresses")
+                return None
         address = super().save(commit=False)
         address.user = user
         address.save()

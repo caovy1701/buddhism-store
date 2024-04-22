@@ -70,10 +70,19 @@
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-wishlist">
-                                            <a href="#" class="wishlist" title="Wishlist">Thêm vào yêu thích</a>
+                                            {% for activities in user.activities.all %}
+                                            {% if activities.object_id == product.variants.first.id %}
+                                            <a href="{% url 'unwishlist' id=product.variants.first.id %}" class="wishlist-active"></a>
+                                            <div class="tooltip for-wishlist">
+                                                Bỏ yêu thích
+                                            </div>
+                                            {% else %}
+                                            <a href="{% url 'wishlist' id=product.variants.first.id %}" class="wishlist"></a>
                                             <div class="tooltip for-wishlist">
                                                 Thêm vào yêu thích
                                             </div>
+                                            {% endif %}
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </li> 

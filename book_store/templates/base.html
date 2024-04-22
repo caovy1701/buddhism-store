@@ -96,7 +96,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="footer-img">
-                    <img src="/static/images/logo.png" alt="">
+                    <img src="/static/images/logo-5.png" alt="">
                     <h4>Cửa hàng phật pháp</h4>
                 </div>
             </div>
@@ -213,30 +213,7 @@
     });
 
     //slide every 3 seconds and return to first thumb image when reach the last thumb image
-    setInterval(() => {
-        const activeThumbImage = document.querySelector('.product-thumb-image.active');
-        // next thumb image always get class .product-thumb-image
-        const nextThumbImage = activeThumbImage.nextElementSibling;
-        if (nextThumbImage && nextThumbImage.classList.contains('product-thumb-image')){
-            productLargeImage.src = nextThumbImage.querySelector('img').src;
-            productThumbImages.forEach((productThumbImage) => {
-                productThumbImage.classList.remove('active');
-                productThumbImage.style.opacity = 0.5;
-            });
-            nextThumbImage.classList.add('active');
-            nextThumbImage.style.opacity = 1;
-
-        } else {
-            // return to first thumb image when reach the last thumb image
-            productLargeImage.src = productThumbImages[0].querySelector('img').src;
-            productThumbImages.forEach((productThumbImage) => {
-                productThumbImage.classList.remove('active');
-                productThumbImage.style.opacity = 0.5;
-            });
-            productThumbImages[0].classList.add('active');
-            productThumbImages[0].style.opacity = 1;
-        }
-    }, 3000);
+  
 
 </script>
 <script>

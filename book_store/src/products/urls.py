@@ -1,12 +1,13 @@
 from django.urls import path
+
 from src.products.views import (
     CategoryView,
     ContactView,
     HomeView,
     ProductDetailView,
     ProductListView,
-    un_wishlist,
-    wishlist,
+    WishListDeleteView,
+    WishListView,
 )
 
 urlpatterns = [
@@ -22,6 +23,14 @@ urlpatterns = [
         ProductDetailView.as_view(),
         name="product-variant-detail",
     ),
-    path("wishlist/<int:id>/", wishlist, name="wishlist"),
-    path("un-wishlist/<int:id>/", un_wishlist, name="unwishlist"),
+    path(
+        "shop/product/<int:id>/wishlist/",
+        WishListView.as_view(),
+        name="wishlist",
+    ),
+    path(
+        "shop/product/<int:id>/wishlist/delete/",
+        WishListDeleteView.as_view(),
+        name="unwishlist",
+    ),
 ]
