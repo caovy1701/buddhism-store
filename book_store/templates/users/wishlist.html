@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="product-details">
                                         <h4>{{ product.name }}</h4>
-                                        <p>{{ product.description }}</p>
+                                        <p>{{ product.description|truncatewords:10 }}</p>
                                     </div>
                                     <div class="product-price" id="price-format">
                                         {{ product.price }} VND
@@ -42,10 +42,9 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endfor %}
-                            {% endfor %}
-                            </div>
                         </div>
+                        {% endfor %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>

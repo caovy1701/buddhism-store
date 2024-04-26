@@ -47,23 +47,32 @@
                                         <div class="btn-inner btn-read-more">
                                             <a href="{{ product.variants.first.get_absolute_url }}" class="read-more" title="Read More">Xem chi tiết</a>
                                             <div class="tooltip for-read-more">
-                                                Xem chi tiết
+                                                Xem chi tiết sản phẩm
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-wishlist">
-                                            {% for activities in user.activities.all %}
-                                            {% if activities.object_id == product.variants.first.id %}
-                                            <a href="{% url 'unwishlist' id=product.variants.first.id %}" class="wishlist-active"></a>
+                                            {% for activity in product.variants.first.activities.all %}
+                                            {% if activity.type == 'wishlist' %}
+                                            {% if activity.object_id == product.variants.first.id and activity.user == user %}
+                                            <a href="{% url 'un_wishlist' id=product.variants.first.id %}" class="wishlist-active"></a>
                                             <div class="tooltip for-wishlist">
                                                 Bỏ yêu thích
                                             </div>
-                                            {% else %}
-                                            <a href="{% url 'wishlist' id=product.variants.first.id %}" class="wishlist"></a>
+                                            {% elif activity not in user.activities.all and forloop.revcounter == 1 %}
+                                            <a href="{% url 'add_wishlist' id=product.variants.first.id %}" class="wishlist"></a>
                                             <div class="tooltip for-wishlist">
                                                 Thêm vào yêu thích
                                             </div>
                                             {% endif %}
+                                            {% endif %}
                                             {% endfor %}
+                                            {% if product.variants.exists and not product.variants.first.activities.exists %}
+                                            <a href="{% url 'add_wishlist' id=product.variants.first.id %}" class="wishlist"></a>
+                                            <div class="tooltip for-wishlist">
+                                                Thêm vào yêu thích
+                                            </div>
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                 </li> 

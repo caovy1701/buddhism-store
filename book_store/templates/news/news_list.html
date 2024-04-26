@@ -36,7 +36,7 @@
                     <div class="blog-text">
                         <h5><a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}">{{ new.title }}</a></h5>
                         <span>{{ new.created_at }}</span>
-                        <p>{{ new.content|striptags|slice:":200" }}...</p>
+                        <p>{{ new.content|safe|slice:":200" }}...</p>
                         <a href="{% url 'news_detail' slug=new.category.slug pk=new.pk %}" class="blog-btn">Read More</a>
                     </div>
                 </div>
