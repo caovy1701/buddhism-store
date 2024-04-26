@@ -94,10 +94,10 @@
                     </form>
                     <div class="btn-inner btn-wishlist">
                         {% if activities.type == 'wishlist' %}
-                        <a href="{% url 'unwishlist' id=product_variant.id %}" class="wishlist-active">
+                        <a href="{% url 'un_wishlist' id=product_variant.id %}" class="wishlist-active">
 
                         {% else %}
-                        <a href="{% url 'wishlist' id=product_variant.id %}" class="wishlist">
+                        <a href="{% url 'add_wishlist' id=product_variant.id %}" class="wishlist">
                         {% endif %}
                         <span class="wishlist b">
                             Thêm vào yêu thích
@@ -214,7 +214,7 @@
         </div>
         <div class="row">
             <div class="products-container products-related relation col-md-12">
-                <h2>Sản phẩm liên quan</h2>
+                <h2>Sản phẩm liên quan</h2>                
                 <ul class="products-grid products-grid-5">
                     {% for product_related in products_related %}
                     <li class="entry">
@@ -222,7 +222,7 @@
                             <ul class="product-entry-list">
                                 <li class="product-image-wrapper">
                                     <div class="product-image">
-                                        <a href="{{ product_related.variants.first.get_absolute_url }}">
+                                        <a href="{% url 'product-variant-detail' pk=product_related.id slug=product_related.product.slug %}">
                                             {% if product_related.image %}
                                             <img src="{{ product_related.image.url }}" alt="image">
                                             {% else %}
@@ -238,36 +238,47 @@
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-read-more">
-                                            <a href="{{ product_related.variants.first.get_absolute_url }}" class="read-more" title="Read More">Read More</a>
+                                            <a href="{% url 'product-variant-detail' pk=product_related.id slug=product_related.product.slug %}" class="read-more" title="Read More">Read More</a>
                                             <div class="tooltip for-read-more">
                                                 Xem chi tiết
                                             </div>
                                         </div>
                                         <div class="btn-inner btn-wishlist">
-                                            {% if activities.type == 'wishlist' %}
-                                            <a href="{% url 'unwishlist' id=product_related.variants.first.id %}" class="wishlist-active"></a>
+                                            {% for activity in product_related.activities.all %}
+                                            {% if activity.type == 'wishlist' %}
+                                            {% if activity.object_id == product_related.id and activity.user == user %}
+                                            <a href="{% url 'un_wishlist' id=product_related.id %}" class="wishlist-active"></a>
                                             <div class="tooltip for-wishlist">
                                                 Bỏ yêu thích
                                             </div>
-                                            {% else %}
-                                            <a href="{% url 'wishlist' id=product_related.variants.first.id %}" class="wishlist"></a>
+                                            {% elif activity not in user.activities.all and forloop.revcounter == 1 %}
+                                            <a href="{% url 'add_wishlist' id=product_related.id %}" class="wishlist"></a>
                                             <div class="tooltip for-wishlist">
                                                 Thêm vào yêu thích
                                             </div>
                                             {% endif %}
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% if not product_related.activities.all %}
+                                            <a href="{% url 'add_wishlist' id=product_related.id %}" class="wishlist"></a>
+                                            <div class="tooltip for-wishlist">
+                                                Thêm vào yêu thích
+                                            </div>
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                 </li> 
                                 <li class="product-title">
-                                    <a href="{{ product_related.variants.first.get_absolute_url }}">{{ product_related.name }}</a>
+                                    <a href="{% url 'product-variant-detail' pk=product_related.id slug=product_related.product.slug %}">{{ product_related.name }}</a>
                                 </li>
                                 <li class="product-description">
                                     <p>{{ product_related.description|truncatewords:10 }}</p>
                                 </li>
                                 <li class="product-price">
-                                    <span class="price" id="price-format">{{ product_related.variants.first.price }} VND</span>
+                                    <span class="price" id="price-format">{{ product_related.price }} VND</span>
                                     <div class="unit-sold">
-                                        <span>{{ product_related.variants.first.unit_sold }} sold</span>
+                                        <span>{{ product_related.unit_sold }} sold</span>
                                     </div>
                                 </li>
                             </ul>

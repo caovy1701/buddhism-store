@@ -26,11 +26,11 @@ urlpatterns = [
     path(
         "shop/product/<int:id>/wishlist/",
         WishListView.as_view(),
-        name="wishlist",
+        name="add_wishlist",
     ),
     path(
         "shop/product/<int:id>/wishlist/delete/",
         WishListDeleteView.as_view(),
-        name="unwishlist",
+        name="un_wishlist",
     ),
 ]

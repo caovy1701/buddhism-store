@@ -76,7 +76,12 @@ class GenericActivity(TimeStampModel):
         verbose_name_plural = "Generic Activities"
 
     def __str__(self):
-        return f"<self.type> - {self.content_object}"
+        return f"<{self.type}> {self.user} - {self.content_object}"
+
+    def wishlist_activity(self, user, object_id):
+        return self.objects.filter(
+            user=user, object_id=object_id, type=self.Type.WISHLIST
+        ).first()
 
 
 class Category(CategoryBase, TimeStampModel):

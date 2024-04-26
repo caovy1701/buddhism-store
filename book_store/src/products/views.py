@@ -120,7 +120,7 @@ class ProductDetailView(WishListMixin, DetailView):
         ).select_related("product")
         context["product_variants"] = products_variants
         context["product_variant"] = products_variants.get(pk=product_variant_id)
-        context["products_related"] = Product.objects.exclude(slug=product_slug)
+        context["products_related"] = self.model.objects.exclude(pk=product_variant_id)
         return context
 
     def get_queryset(self):
